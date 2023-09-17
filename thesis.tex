@@ -1,8 +1,8 @@
 \documentclass[oneside,final,14pt,a4paper]{extreport}
 
-# set the compiler XeLatex to use fontspec package
+%# set the compiler XeLatex to use fontspec package
 \usepackage{fontspec}
- 
+
 \setmainfont{Times New Roman}
 
 \usepackage{vmargin}
@@ -22,7 +22,7 @@
 \usepackage[T1,T2A]{fontenc}
 \usepackage[utf8]{inputenc}
 \AtBeginShipout{\AtBeginShipoutUpperLeft{%
-  \put(\dimexpr\paperwidth-1cm\relax,-1.5cm){\makebox[0pt][r]{\includegraphics[width=3cm]{figs/inno}}}%
+\put(\dimexpr\paperwidth-1cm\relax,-1.5cm){\makebox[0pt][r]{\includegraphics[width=3cm]{figs/inno}}}%
 }}
 
 
@@ -30,7 +30,7 @@
 \usepackage[backend=biber,style=ieee,autocite=inline]{biblatex}
 \bibliography{ref.bib}
 \DefineBibliographyStrings{english}{%
-  bibliography = {References},}
+bibliography = {References},}
 \usepackage{blindtext}
 
 
@@ -72,7 +72,7 @@
 % \usepackage{t1enc}
 
 \usepackage{chngcntr}
-\usepackage{upgreek} 
+\usepackage{upgreek}
 \usepackage{bm}
 \usepackage{hyperref}
 \usepackage{setspace}
@@ -83,21 +83,21 @@
 \counterwithout{table}{chapter}
 \renewcommand{\thetable}{\Roman{table}}
 %Hints
-\newcommand\pic[1]{(Fig. \ref{#1})} %Ref on figure
-\newcommand\tab[1]{(Tab. \ref{#1})} %Ref on table
+\newcommand\pic[1]{(Fig. \ref{\#1})} %Ref on figure
+\newcommand\tab[1]{(Tab. \ref{\#1})} %Ref on table
 
 \setlength{\headheight}{32.0976pt}
 \usepackage{enumitem}
 \newlist{inlinelist}{enumerate*}{1}
 \setlist*[inlinelist,1]{%
-  label=(\arabic*),
+label=(\arabic*),
 }
 
 \setcounter{secnumdepth}{4}
 \captionsetup[table]{labelfont={normalfont}, name={TABLE}, labelsep={newline}}
 \counterwithout{table}{chapter}
 \renewcommand{\thetable}{\Roman{table}}
-\setlength{\parindent}{2em} 
+\setlength{\parindent}{2em}
 \DeclareCaptionLabelSeparator{figSep}{.\quad}
 \captionsetup[figure]{labelfont={normalfont}, name={Fig.}, labelsep=period}
 \counterwithout{figure}{chapter}
@@ -113,23 +113,23 @@
 
 % remember section title
 \renewcommand{\chaptermark}[1]%
-	{\markboth{\chaptername~\thechapter~--~#1}{}}
+{\markboth{\chaptername~\thechapter~--~\#1}{}}
 
 % subsection number and title
 \renewcommand{\sectionmark}[1]%
-	{\markright{\thesection\ #1}}
+{\markright{\thesection\ #1}}
 
 \rhead[\fancyplain{}{\bf\leftmark}]%
-      {\fancyplain{}{\bf\thepage}}
+{\fancyplain{}{\bf\thepage}}
 \lhead[\fancyplain{}{\bf\thepage}]%
-      {\fancyplain{}{\bf\rightmark}}
+{\fancyplain{}{\bf\rightmark}}
 \cfoot{} %bfseries
 
 
 \newcommand{\dedication}[1]
-   {\thispagestyle{empty}
-     
-   \begin{flushleft}\raggedleft #1\end{flushleft}
+{\thispagestyle{empty}
+
+\begin{flushleft}\raggedleft #1\end{flushleft}
 }
 
 \begin{document}
@@ -141,18 +141,18 @@
 
 
 \newpage
-\include{chapters/abstract}
+\input{chapters/abstract}
 \setcounter{page}{8} % set manually an actual number from which introduction starts
-\include{chapters/chapter1}
-\include{chapters/chapter2}
-\include{chapters/chapter3}
-\include{chapters/chapter4}
-\include{chapters/chapter5}
-\include{chapters/chapter6}
+\input{chapters/chapter1}
+\input{chapters/chapter2}
+\input{chapters/chapter3}
+\input{chapters/chapter4}
+\input{chapters/chapter5}
+\input{chapters/chapter6}
 
 
 %% REFERENCES
 \printbibliography[heading=bibintoc,title={Bibliography cited}]
-\include{chapters/appex}
+\input{chapters/appex}
 \end{document}
 
