@@ -1,9 +1,8 @@
-# FAQ
-This is a full *LaTeX* template for your thesis work. It can be imported to Overleaf or used offline.
-First, please, replace the stub title with the real one.
+### BS Thesis. 
+#### A Web-Service for Reproducible Load Testing, Visualization, and Configuration of Feedback Control Systems
+Eduard Zaripov. BS-20-SD-02
 
-## How to replace the title page with the real one
-1. Open `docx` template (folder `title/<your department or bach if bachelor student>.docx`).
-2. Enter the **thesis title, supervisor's and your name** in appropriate places in both English and Russian languages.
-3. Enter current year (last row).
-4. Convert the file to `title.pdf`, replace the existing one in the root folder.
+[PDF](thesis.pdf)
+
+If by some reasons pdf is not accessible or actual, you can check
+[.tex](thesis.tex) file
