@@ -3,6 +3,7 @@
 %# set the compiler XeLatex to use fontspec package
 \usepackage{fontspec}
 \usepackage{tempora}
+\usepackage{hyperref}
 
 \setmainfont{Times New Roman}
 
@@ -144,11 +145,11 @@ label=(\arabic*),
 \setcounter{page}{8} % set manually an actual number from which introduction starts
 \input{chapters/chapter1}
 \input{chapters/chapter2}
+\input{chapters/citations}
 %\input{chapters/chapter3}
 %\input{chapters/chapter4}
 %\input{chapters/chapter5}
 %\input{chapters/chapter6}
-
 
 %% REFERENCES
 \printbibliography[heading=bibintoc,title={Bibliography cited}]

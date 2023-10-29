@@ -24,9 +24,9 @@ Similar comparison proposed by [2], but, additionally, the authors compare tools
 Based on comparisons the most usable tool is Jmeter [2] because of multiple scripting language, friendly graphical user interface and open source.
 Additionally, all authors pointed out the Gatling tool due to its flexible load generation scenarios.
 But I chose to use Yandex.Tank because all studies do not consider the fact that Yandex tank, unlike Jmeter or Gatling, can use different engines to generate loads, such as Phantom, BFG, Pandora [yandex tank doc].
-For example, with the Phantom engine [2], it can generate a load of more than 100,000 requests per second, or it can use Jmeter engine and use all its features.
+For example, with the Phantom engine [3], it can generate a load of more than 100,000 requests per second, or it can use Jmeter engine and use all its features.
 This tool is open-source and can be configured using a config file.
-Additionally, Yandex Tank has a ready-made web server [3], which can execute load test by HTTP request.
+Additionally, Yandex Tank has a ready-made web server [4], which can execute load test by HTTP request.
 It will be taken as the basis for the load generation microservice.
 
 
@@ -35,23 +35,23 @@ It will be taken as the basis for the load generation microservice.
 Reliability patterns ensure the stability and resilience of high-load systems.
 But each pattern have its own tune parameters and in case of multiple patterns implementation it is challenging to handle all configurations.
 
-In order to properly withstand with high load [4] examines corresponding strategies.
+In order to properly withstand with high load [5] examines corresponding strategies.
 They present several approaches, such as rate-limit, retry strategy, circuit-breaker and load-balancer.
 The authors offers many ideas how to properly implement them.
-Similar ideas are presented in [12] about circuit-breaker and retry patterns.
+Similar ideas are presented in [6] about circuit-breaker and retry patterns.
 However, the authors do not highlight best practices for configuring these approaches.
 For example, which parameters are better to set in certain load scenarios.
 
-Circuit-breaker have several tune parameters [4], such as sleep window, error percentage threshold, etc.
+Circuit-breaker have several tune parameters [7], such as sleep window, error percentage threshold, etc.
 At the same time, load balancer can have multiple strategies, such as round-robin, ratio, etc.
-Retry strategy can be configured by maximum number and interval of retries [11].
+Retry strategy can be configured by maximum number and interval of retries [8].
 The parameters of these patterns produce different throughput in different combination, and it is crucial to understand how to find the most performable.
 
 
 \section{Orchestrator services}\label{sec:service-orchestrator}
 Orchestrator services is needed for automated configuring, coordinating and managing software.
 The examples of orchestrator services are Consul, Kubernetes, etc.
-Consul is configuration management system that provides service discovery and health checking [15].
+Consul is configuration management system that provides service discovery and health checking [9].
 At the same time Kubernetes can orchestrate containers, handle internal networks, etc.
 However, none of these services can configure concrete reliability patterns.
 They are not able to run load test and find the most performable configuration.
@@ -59,19 +59,21 @@ They are not able to run load test and find the most performable configuration.
 
 \section{Service implementation}\label{sec:implementation}
 First, Spring framework is the main choice of the web services implementation.
-[8] explains that in comparison to Django, Rails, Spring has high scalability and high-quality documentation.
+[10] explains that in comparison to Django, Rails, Spring has high scalability and high-quality documentation.
 Additionally, the authors points out that Spring support multiple language, such as Java, Kotlin and Groovy.
 
-Second, service is divided into microservices due to machine workload during load test [9].
+Second, service is divided into microservices due to machine workload during load test [11].
 It can affect the perfomance of configuration orchestration logic.
 In microservice architecture the configuration service will be stable in case of load generation system throttling
 
-Third, service based on event-driven architecture [6] because of the constant configuration changes and the need for real-time awareness. According to this architecture, it is required to use stream of event and the authors suggests to use message broker for its implementation. Kafka tool is used to implement it due to high throughput and fault tolerance [7].
+Third, service based on event-driven architecture [12] because of the constant configuration changes and the need for real-time awareness.
+According to this architecture, it is required to use stream of event and the authors suggests to use message broker for its implementation.
+Kafka tool is used to implement it due to high throughput and fault tolerance [13].
 
 Fourth, the service infrastructure is constructed by combination of Docker and Kubernetes.
-Docker is used for containerization that allows easier deployment and scalability [13].
+Docker is used for containerization that allows easier deployment and scalability [14].
 Kubernetes is used for orchestrating and managing these containers.
-It provides reliablity features, such as self-healing, automatic scaling, etc. [14]
+It provides reliablity features, such as self-healing, automatic scaling, etc. [15]
 
 %[1] - https://elibrary.ru/item.asp?id=32601827
 %[2] - https://github.com/yandex-load/phantom
