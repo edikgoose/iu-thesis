@@ -6,65 +6,77 @@
 \chaptermark{Second Chapter Heading}
 
 
-\Blindtext[2]
+To further implementation of the service it is required to choose appropriate tools and approaches for development.
+This chapter is organized in such way:
+
+\begin{itemize}
+    \item Section 1 reviews modern load generation tools
+    \item Section 2 gives a brief overview of reliability patterns configuration
+    \item Section 3 outlines the tools and technologies for implementing service
+\end{itemize}
+
+\section{Load Generation Tool}\label{sec:load-generation}
+[1] presents a comprehensive comparison of the following modern load generation tools:
+\begin{itemize}
+    \item HP LoadRunner
+    \item Apache JMetr
+    \item MicroFocus (Borland) Silk Performer
+    \item Microsoft Visual Studio
+    \item 1C KIP
+    \item Yandex.Tank
+    \item Pure Load
+    \item Tsung
+    \item Gatling
+    \item Grinder
+\end{itemize}
+
+Yandex tank is the most suitable tool because it is open-source and configured using a config file.
+The author advises using Jmeter, but he did not cover the point that Yandex tank,
+unlike Jmeter, can use different engines to generate loads.
+And, for example, with the Phantom engine[2], it can generate
+a load of more than 100,000 requests per second.
+Also, Yandex Tank has a ready-made http web server [3], which will be taken as
+the basis for the load generation microservice
+
+\section{Reliability patterns}\label{sec:reliablity}
+
+Buyer et al. [4] examines strategies for high load withstand.
+They present several approaches, such as rate-limit, retry strategy,
+circuit-breaker and load-balancer.
+However, the authors did not highlight best practices for configuring these approaches.
+
+Circuit-breaker have several tune parameters [4], such as
+sleep window, error percentage threshold, etc.
+At the same time, load balancer [10] have multiple strategies, such as round robin, ratio, etc.
+Retry strategy can be configured by maximum number and interval of retries [11].
+These approaches parameters produce different throughput in different combination, and it is crucial to
+find the most performable.
+
+\section{Service implementation}\label{sec:implementation}
+First, Spring framework is the main choice of the web services implementation.
+[8] explains that in comparison to Django, Rails, Spring has high scalability and high-quality documentation
+Additionally, the authors points out that Spring support multiple language, such as Java, Kotlin and Groovy.
 
 
-\section{Another Section}\label{sec:another-section}
-\Blindtext[1]
-\newpage
+Second, service is divided into microservices due to machine high load during load test [9].
+And in case of system throttling, configuration service must be stable and do not depend on the
+state of the load generation service.
 
+Third, service based on event-driven architecture [6] because of the constant configuration changes
+and the need for real-time awareness.
+According to this architecture, it is required to use stream of event.
+Kafka tool is used to implement it due to high throughput and fault tolerance [7].
 
-\begin{longtable}{c|c}
-    \caption[This is the title I want to appear in the List of Tables]{Simulation Parameters} \label{table:secsimulation_params} \\
-    \hline
-    A                                     & B                               \\
-    \hline
-    \endfirsthead
-    \multicolumn{2}{@{}l}{} \\
-    \hline
-    A                                     & B                               \\
-    \hline
-    \endhead
-    \hline
-    \textbf{Parameter}                    & \textbf{Value}                  \\
-    \hline
-    Number of vehicles                    & $|\mathcal{V}|$                 \\
-    \hline
-    Number of RSUs                        & $|\mathcal{U}|$                 \\
-    \hline
-    RSU coverage radius                   & 150 m                           \\
-    \hline
-    V2V communication radius              & 30 m                            \\
-    \hline
-    Smart vehicle antenna height          & 1.5 m                           \\
-    \hline
-    RSU antenna height                    & 25 m                            \\
-    \hline
-    Smart vehicle maximum speed           & $v_{\max}$ m/s                  \\
-    \hline
-    Smart vehicle minimum speed           & $v_{\min}$ m/s                  \\
-    \hline
-    Common smart vehicle cache capacities & $[50, 100, 150, 200, 250]$ mb   \\
-    \hline
-    Common RSU cache capacities           & $[5000,1000,1500,2000,2500]$ mb \\
-    \hline
-    Common backhaul rates                 & $[75, 100, 150]$ mb/s           \\
-    \hline
-\end{longtable}
-
-\begin{figure}[hbt]
-    \centering
-    \includegraphics[]{figs/inno.png}
-    \caption{One kernel at $x_s$ (\emph{dotted kernel}) or two kernels at
-        $x_i$ and $x_j$ (\textit{left and right}) lead to the same summed estimate
-        at $x_s$. This shows a figure consisting of different types of
-        lines. Elements of the figure described in the caption should be set in
-        italics, in parentheses, as shown in this sample caption.}
-    \label{fig:secex}
-\end{figure}
-
-This description implies several essential properties of the task at hand:
-\begin{enumerate}
-    \item Watermark must contain all necessary information, but still, be placeable and recognizable even on smaller images. The produced watermark must be compact but have the possibility to store enough information.
-    \item To prevent easy tampering, the watermark must be invisible to the naked eye (and, preferably, to basic image parsing tools). If malefactor does not know about the existence of watermark, they might not even try to remove it and disable it.
-\end{enumerate}
+%[1] - https://elibrary.ru/item.asp?id=32601827
+%[2] - https://github.com/yandex-load/phantom
+%[3] - https://github.com/yandex-load/yandex-tank-api
+%[4] - https://sre.google/sre-book/handling-overload/
+%[5] - https://iopscience.iop.org/article/10.1088/1757-899X/1077/1/012065
+%[6] - https://elementallinks.com/el-reports/EventDrivenArchitectureOverview_ElementalLinks_Feb2011.pdf
+%[7] - https://arxiv.org/abs/1912.03715
+%[8] - https://hrcak.srce.hr/en/clanak/321176%3F
+%[9] - https://ieeexplore.ieee.org/abstract/document/7965448
+%[10] - https://www.researchgate.net/profile/Subhi-Zeebaree/publication/337972812_A_State_Of_Art_Survey_For_Web_Server_Performance_Measurement_And_Load_Balancing_Mechanisms/links/5f115b8092851c1eff183f6f/A-State-Of-Art-Survey-For-Web-Server-Performance-Measurement-And-Load-Balancing-Mechanisms.pdf
+%[11] - https://cloud.google.com/storage/docs/retry-strategy#client-libraries
+Kotlin + Spring
+Docker + K8s
