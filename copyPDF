@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cp ./out/thesis.pdf ./thesis.pdf
+git add ./thesis.pdf
