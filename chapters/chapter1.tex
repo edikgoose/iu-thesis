@@ -1,127 +1,48 @@
-%\usepackage{blindtext}
-%\usepackage{bm}
-%\usepackage{amsmath}
-%\usepackage{graphicx}
-
 \chapter{Introduction}
 \label{ch:intro}
 \chaptermark{Optional running chapter heading}
 
-%
-%\section{Spacing \& Type}
-%\label{sec:section}
-%
-%This is a section. This is a citation without brackets. and this is one with brackets \cite{A}. Multiple \cite{A,B,C} Here's a reference to a subsection: \ref{subsec:subsection}. Citation of an online article \cite{D}. Citation of an online proceeding \cite{F}. The body of the text and abstract must be double-spaced except for footnotes or long quotations. Fonts such as Times Roman, Bookman, New Century Schoolbook, Garamond, Palatine, and Courier are acceptable and commonly found on most computers. The same type must be used throughout the body of the text. The font size must be 10 point or larger and footnotes\footnote{This is a footnote.} must be two sizes smaller than the text\footnote{This is another footnote.} but no smaller than eight points. Chapter, section, or other headings should be of a consistent font and size throughout the ETD, as should labels for illustrations, charts, and figures.
-%
-%\subsection{Creating a Subsection}
-%\label{subsec:subsection}
-%
-%\subsubsection{Creating a Subsection}
-%
-%\subsubsection{Creating a Subsection}
-%
-%\subsubsection{Creating a Subsection}
-%
-%\paragraph{This is a heading level below subsubsection}
-%
-%And this is a quote:
-%%
-%\begin{quote}
-%    \blindtext
-%\end{quote}
-%
-%\begin{figure}[hbt]
-%    \centering
-%    \includegraphics[]{figs/inno.png}
-%    \caption{One kernel at $x_s$ (\emph{dotted kernel}) or two kernels at
-%        $x_i$ and $x_j$ (\textit{left and right}) lead to the same summed estimate
-%        at $x_s$. This shows a figure consisting of different types of
-%        lines. Elements of the figure described in the caption should be set in
-%        italics, in parentheses, as shown in this sample caption.}
-%    \label{fig:example}
-%\end{figure}
-%
-%This is a table:
-%% currsize is not set in the long table environment, so we need to set it before we set it up.
-%\makeatletter
-%\let\@currsize\normalsize
-%\makeatother
-%
-%% tabular environments are set to be single-spaced in the  thesis class,  but long tables do not use tabular
-%% to get around this, set the spacing to single spacing at the start of the long table environment, and set it back to double-spacing at the end of it
-%
-%\begin{longtable}{c|c|c}
-%    \caption[This is the title I want to appear in the List of Tables]{This Is a Table Example} \label{tab:pfams} \\
-%    \hline
-%    A  & B  & C  \\
-%    \hline
-%    \endfirsthead
-%    \multicolumn{3}{@{}l}{} \\
-%    \hline
-%    A  & B  & C  \\
-%    \hline
-%    \endhead
-%    a1 & b1 & c1 \\
-%    a2 & b2 & c2 \\
-%    a3 & b3 & c3 \\
-%    a4 & b4 & c4 \\
-%    \hline
-%\end{longtable}
-%
-%The package ``upgreek'' allows us to use non-italicized lower-case greek letters.
-%See for yourself: $\upbeta$, $\bm\upbeta$, $\beta$, $\bm\beta$.
-%Next is a numbered equation:
-%\begin{align}
-%    \label{eq:name}
-%    \|\bm{X}\|_{2,1}={\underbrace{\sum_{j=1}^nf_j(\bm{X})}_{\text{convex}}}=\sum_{j=1}^n\|\bm{X}_{.,j}\|_2
-%\end{align}
-%The reference to equation (\ref{eq:name}) is clickable.
-%\section[Theorems, Corollaries, Lemmas, Proofs, Remarks, Definitions and Examples]{Theorems, Corollaries, Lemmas, Proofs, Remarks, Definitions,and Examples}\label{sec:theorems-corollaries-lemmas-proofs-remarks-definitionsand-examples}
-%
-%\begin{theorem}
-%    \label{thm:onlytheorem}
-%    \blindtext
-%\end{theorem}
-%
-%\begin{proof}
-%    I'm a (very short) proof.
-%\end{proof}
-%
-%\begin{lemma}
-%    I'm a lemma.
-%\end{lemma}
-%
-%\begin{corollary}
-%    I include a reference to Thm.~\ref{thm:onlytheorem}.
-%\end{corollary}
-%
-%\begin{proposition}
-%    I'm a proposition.
-%\end{proposition}
-%
-%\begin{remark}
-%    I'm a remark.
-%\end{remark}
-%
-%\begin{definition}
-%    I'm a definition.
-%    I'm a definition.
-%    I'm a definition.
-%    I'm a definition.
-%\end{definition}
-%
-%\begin{example}
-%    I'm an example.
-%\end{example}
-%
-%
-%\section[Optional table of contents heading]{Section with\\ linebreaks in\\the
-%name}\label{sec:section-with-linebreaks-inthe
-%name}
-%
-%
-%\Blindtext[2]
+This chapter provides background information on the topic of site reliability engineering, including its usability and configuration. The chapter discusses load testing, its goals for reliability testing, and its use. In addition, it provides a preview of the content of each subsequent chapter.
 
+\section{Consequences of high load on web services}\label{sec:consequences-of-high-load-on-web-services}
+During the software development, it is important to consider the fact that all web services have a load limit - the maximum number of users that the service can handle simultaneously.
+After this limit is reached, the service may no longer provide the expected level of quality, which could have a negative impact on the business.
+For instance, it has been calculated that a one-second latency in the response time of Amazon`s services could cost the company \$1.6 billion.
+Most web services become unavailable after reaching their load limit, responding with an error.
+As a result, they cease to provide the service altogether. It is inevitable, but service can suspend the occurrence
+of such scenario by applying site-reliability engineering practices.
 
+\section{Site reliability engineering}\label{sec:site-reliability-engineering}
+Site reliability engineering practices have been proposed by Google in 2003 with the aim of increasing the fault tolerance of web services. These practices include a number of measures, such as defining and measuring reliability targets, monitoring, alerting, and, last but not least, performance optimization. The practices suggest certain reliability patterns that can help to reduce the negative effects of high loads on users.
+The most common reliability patterns include: 
 
+\begin{itemize}
+\item \textbf{Circuit breaker}. It is placed in front of a service and has three states: open, closed, and half-open. By default, the circuit breaker is open, but if the service starts to respond with errors, it will move to the close state and block all requests. After a period of time, it move to the half-open state, allowing some requests to pass. If these requests are successful, the circuit-breaker will become open, otherwise, it return to the close state.
+\item \textbf{Retry strategy}. If the service returns with an error, the request will be retried after a specified period of time.
+\item \textbf{Rate-limit}. If the service receives too many requests, it will limit the rate at which requests are processed.
+\end{itemize}
 
+However, in order to properly configure a reliability patters, it is necessary to test each configuration under high load conditions. And it is essential not to test on the load of real users.
+
+\section{Load Testing}\label{sec:load-testing}
+Load testing\cite{load_testing_wiki} is needed for creation of a manageable high load on a service in order to observe its behavior and identify the maximum point of load. There are three stages of using load testing:
+
+\begin{itemize}
+\item Test Design: Load test scenarios should be as similar to real-world user requests as possible. In most cases, user activity is aggregated into common metric, such as the number of requests per second.
+\item Test Execution: Load testing requires a significant amount of resources, and therefore, the allocated hardware must be properly configured for high loads. Additionally, load testing tool must be deployed and configured on machine.
+\item Test Analysis: During load testing, a variety of metrics and application logs are collected and aggregated to allow for analysis of the state of the service under stress.
+\end{itemize}
+
+Before starting the testing it is necessary to choose the tool for load testing. They are divided into:
+\begin{itemize}
+\item Local. It is deployed on your machine or server by yourself. All stages of load testing is controlled by you.
+\item Cloud-based. Such tools provides load testing as a service and hide test execution part as black box.
+\end{itemize}
+
+For large companies, it is more advantageous to use cloud-based solutions due to their more convenient usage and funding capabilities. And for smaller projects with limited funding, it is essential to utilize open-source solutions, deploy them on a local machine, and test the service under he load.
+
+\section{Task Description}\label{sec:task-description}
+It is necessary to develop a tool that can configure reliability patterns and execute load testing scenarios. The tool should be easy to deploy and use.
+
+\section{Structure outline}\label{sec:structure-outline}
+Chapter 2 provides an overview of the most popular reliability patterns and their implementation. Chapter 3 outlines the architectural design of the system. Chapter 4 presents the implementation of the system and an example of its usage. Chapter 5 discusses difficulties and limitations encountered during development. Chapter 6 concludes the paper.
