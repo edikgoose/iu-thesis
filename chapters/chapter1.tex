@@ -5,16 +5,12 @@
 This chapter provides background information on the topic of site reliability engineering, including its usability and configuration. The chapter discusses load testing, its goals for reliability testing, and its use. In addition, it provides a preview of the content of each subsequent chapter.
 
 \section{Consequences of high load on web services}\label{sec:consequences-of-high-load-on-web-services}
-During the software development, it is important to consider the fact that all web services have a load limit - the maximum number of users that the service can handle simultaneously.
-After this limit is reached, the service may no longer provide the expected level of quality, which could have a negative impact on the business.
-For instance, it has been calculated that a one-second latency in the response time of Amazon`s services could cost the company \$1.6 billion.
-Most web services become unavailable after reaching their load limit, responding with an error.
-As a result, they cease to provide the service altogether. It is inevitable, but service can suspend the occurrence
-of such scenario by applying site-reliability engineering practices.
+During the software development, it is important to consider the fact that all web services have a load limit - the maximum number of users that the service can handle simultaneously. After this limit is reached, the service may no longer provide the expected level of quality, which could have a negative impact on the business. For instance, it has been calculated that a one-second latency in the response time of Amazon's services could cost the company \$1.6 billion~\cite{one_second_article}.
+Most web services become unavailable after reaching their load limit, responding with an error. As a result, they cease to provide the service altogether. It is inevitable, but service can suspend the occurence of such scenario by applying site-reliability engineering practices.
 
 \section{Site reliability engineering}\label{sec:site-reliability-engineering}
 Site reliability engineering practices have been proposed by Google in 2003 with the aim of increasing the fault tolerance of web services. These practices include a number of measures, such as defining and measuring reliability targets, monitoring, alerting, and, last but not least, performance optimization. The practices suggest certain reliability patterns that can help to reduce the negative effects of high loads on users.
-The most common reliability patterns include: 
+The most common reliability patterns include:
 
 \begin{itemize}
 \item \textbf{Circuit breaker}. It is placed in front of a service and has three states: open, closed, and half-open. By default, the circuit breaker is open, but if the service starts to respond with errors, it will move to the close state and block all requests. After a period of time, it move to the half-open state, allowing some requests to pass. If these requests are successful, the circuit-breaker will become open, otherwise, it return to the close state.
@@ -22,10 +18,10 @@ The most common reliability patterns include:
 \item \textbf{Rate-limit}. If the service receives too many requests, it will limit the rate at which requests are processed.
 \end{itemize}
 
-However, in order to properly configure a reliability patters, it is necessary to test each configuration under high load conditions. And it is essential not to test on the load of real users.
+All these reliability patterns should be properly configured. If a software system has many such patterns it can be difficult to maintain them, as the configuration of each one may result in different performance of the system.
 
 \section{Load Testing}\label{sec:load-testing}
-Load testing\cite{load_testing_wiki} is needed for creation of a manageable high load on a service in order to observe its behavior and identify the maximum point of load. There are three stages of using load testing:
+However, in order to properly configure a reliability patters, it is necessary to test each configuration under high load conditions and all tests should repeat real usage scenarios. Load testing~\cite{load_testing_wiki} is needed for creation of a manageable high load on a service in order to observe its behavior and identify the maximum point of load. There are three stages of using load testing:
 
 \begin{itemize}
 \item Test Design: Load test scenarios should be as similar to real-world user requests as possible. In most cases, user activity is aggregated into common metric, such as the number of requests per second.
@@ -39,10 +35,18 @@ Before starting the testing it is necessary to choose the tool for load testing.
 \item Cloud-based. Such tools provides load testing as a service and hide test execution part as black box.
 \end{itemize}
 
-For large companies, it is more advantageous to use cloud-based solutions due to their more convenient usage and funding capabilities. And for smaller projects with limited funding, it is essential to utilize open-source solutions, deploy them on a local machine, and test the service under he load.
+For large companies, it is more advantageous to use cloud-based solutions due to their more convenient usage and funding capabilities.
+And for smaller projects with limited funding, it is essential to utilize open-source solutions, deploy them on a local machine, and test the service under the load.
 
-\section{Task Description}\label{sec:task-description}
-It is necessary to develop a tool that can configure reliability patterns and execute load testing scenarios. The tool should be easy to deploy and use.
+But to properly deploy and configure local load testing tool requires skills in this sphere
+
+\section{Purpose of study}\label{sec:purpose}
+In order to properly implement and configure reliable patterns, a high level of expertise in Systems Reliability Engineering (SRE) is necessary. Additionally, in order to test the effectiveness of these patterns, System Administration and DevOps experience are also required.
+The purpose of this study is to present a universal tool that can be easily deployed on any system and provide functionality for configuring and test site reliability patterns
 
 \section{Structure outline}\label{sec:structure-outline}
-Chapter 2 provides an overview of the most popular reliability patterns and their implementation. Chapter 3 outlines the architectural design of the system. Chapter 4 presents the implementation of the system and an example of its usage. Chapter 5 discusses difficulties and limitations encountered during development. Chapter 6 concludes the paper.
+Chapter 2 provides an overview of the most popular reliability patterns and their implementation.
+Chapter 3 outlines the architectural design of the system.
+Chapter 4 presents the implementation of the system and an example of its usage.
+Chapter 5 discusses difficulties and limitations encountered during development.
+Chapter 6 concludes the paper.
