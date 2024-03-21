@@ -2,14 +2,15 @@
 \label{ch:intro}
 \chaptermark{Optional running chapter heading}
 
-This chapter provides background information on the topic of site reliability engineering, including its usability and configuration. The chapter discusses load testing, its goals for reliability testing, and its use. In addition, it provides a preview of the content of each subsequent chapter.
+This chapter provides background information on the topic of Site Reliability Engineering (SRE), including its usability and configuration.
+The chapter discusses load testing, its goals for reliability testing, and its use. In addition, it provides a preview of the content of each subsequent chapter.
 
 \section{Consequences of high load on web services}\label{sec:consequences-of-high-load-on-web-services}
 During the software development, it is important to consider the fact that all web services have a load limit - the maximum number of users that the service can handle simultaneously. After this limit is reached, the service may no longer provide the expected level of quality, which could have a negative impact on the business. For instance, it has been calculated that a one-second latency in the response time of Amazon's services could cost the company \$1.6 billion~\cite{one_second_article}.
-Most web services become unavailable after reaching their load limit, responding with an error. As a result, they cease to provide the service altogether. It is inevitable, but service can suspend the occurence of such scenario by applying site-reliability engineering practices.
+
 
 \section{Site reliability engineering}\label{sec:site-reliability-engineering}
-Site reliability engineering practices have been proposed by Google in 2003 with the aim of increasing the fault tolerance of web services. These practices include a number of measures, such as defining and measuring reliability targets, monitoring, alerting, and, last but not least, performance optimization. The practices suggest certain reliability patterns that can help to reduce the negative effects of high loads on users.
+SRE~\cite{sre_main_site} practices have been proposed by Google in 2003 with the aim of increasing the fault tolerance of web services. These practices include a number of measures, such as defining and measuring reliability targets, monitoring, alerting, and, last but not least, performance optimization. The practices suggest certain reliability patterns that can help to reduce the negative effects of high loads on users.
 The most common reliability patterns include:
 
 \begin{itemize}
@@ -41,7 +42,7 @@ And for smaller projects with limited funding, it is essential to utilize open-s
 But to properly deploy and configure local load testing tool requires skills in this sphere
 
 \section{Purpose of study}\label{sec:purpose}
-In order to properly implement and configure reliable patterns, a high level of expertise in Systems Reliability Engineering (SRE) is necessary. Additionally, in order to test the effectiveness of these patterns, System Administration and DevOps experience are also required.
+In order to properly implement and configure reliable patterns, a high level of expertise in SRE is necessary. Additionally, in order to test the effectiveness of these patterns, System Administration and DevOps experience are also required.
 The purpose of this study is to present a universal tool that can be easily deployed on any system and provide functionality for configuring and test site reliability patterns
 
 \section{Structure outline}\label{sec:structure-outline}

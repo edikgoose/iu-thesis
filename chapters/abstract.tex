@@ -1,23 +1,14 @@
 \begin{abstract}
 
-    BACKGROUND:
     The number of users of web services is increasing annually and, therefore, all developers aim to develop a high reliable software.
     However, no system can withstand any load, so site reliability engineers prepare for potential service failures by implementing various reliability practices to minimize associated risks.
     Feedback control system is a system that can give feedback about its current status so that engineers can react to it in advance the risks of a fall.
-
-    OBJECTIVE:
     However, for feedback control systems developers face a problem that each reliability practice is configured in its own way and combinations of these settings can give different results in the reliability of the system.
     This paper outlines a web-service for reproducible load testing, visualization, and configuration of feedback control systems
-
-    METHODS:
     The web-services was developed by using Kotlin and Spring Boot framework, and Kafka broker message was used for communication.
     Yandex tank was chosen as a high load generator for the ability to use several cores for load generation and a convenient API.
     Additionally, by using Angular framework I developed a UI interface for a more convenient and visual use of the service.
-
-    RESULTS:
     The proposed service can handled services for configuration, executed load testing scenarios and provided real-time results as graphs.
-
-    CONTRIBUTION AND APPLICABILITY:
     This service can be used in testing systems under various load scenarios with different configuration variants.
     These practices help to find the most effective combination of parameters that ensures optimal system performance.
 

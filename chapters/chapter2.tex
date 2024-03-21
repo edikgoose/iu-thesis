@@ -7,66 +7,39 @@ Additionally, to further implementation of the service it is required to choose 
 This chapter is organized in such way:
 
 \begin{itemize}
-    \item Section 1 reviews modern load generation tools.
-    \item Section 2 gives a brief overview of reliability patterns configuration.
-    \item Section 3 presents industry standard solutions for orchestrator services.
-    \item Section 4 outlines the tools and technologies for implementing service.
-    \item Section 5 provides a conclusion of this chapter.
+    \item~\ref{sec:load_generation} reviews modern load generation tools.
+    \item~\ref{sec:reliability} gives a brief overview of reliability patterns configuration.
+    \item~\ref{sec:tool-selection} outlines the tools and technologies for implementing service.
+    \item~\ref{sec:review_conclusion} provides a conclusion of this chapter.
 \end{itemize}
 
 \section{Load Generation Tool}\label{sec:load_generation}
-The main criteria of load generation tool choice are ability to generate more than 100000 requests per seconds and to execute load tests by code.
-R. Abbas, Z. Sultan and S. N. Bhatti~\cite{load_testing_tools} present a comprehensive comparison of the modern load generation tools.
-They use different criteria, such as different protocol support, cost and ease of learning.
-Based on comparison the most usable tool is Jmeter because of multiple scripting language, friendly graphical user interface and open source.
-Additionally, the authors pointed out the Gatling tool due to its flexible load generation scenarios.
-But Yandex Tank~\cite{yandex_tank} tool is chosen as main tool because the authors do not consider the fact that Yandex tanks, unlike Jmeter or Gatling, can use different engines to generate loads, such as Phantom, BFG, Pandora.
-For example, with the Phantom engine~\cite{phantom}, it can generate a load of more than 100,000 requests per second. Alternatively, it can utilize the Jmeter engine to its full potential. This tool is open-source and can be configured using a config file.
-Additionally, Yandex Tank has a ready-made web server~\cite{yandex_tank_api}, which can execute load tests by HTTP request.
-It will be used as the primary load-generation tool and will be tuned for this study.
+The main criteria for selecting a load generation tool are its ability to generate loads and configure test scenarios through configuration files.
+R. Abbas, Z. Sultan, and S. N. Bhatti~\cite{load_testing_tools} provide a comprehensive comparison of modern load generation tools, using various criteria, including different protocol support, costs, and ease of use.
+Based on a comparison, the most suitable tool is JMeter, due to its multiple scripting languages, user-friendly graphical interface, and open-source nature. Additionally, the authors noted the Gatling tool due to its flexible load generation capabilities. However, the authors did not mention the Yandex Tank tool~\cite{yandex_tank}. It is an open-source tool that is easy to use because test configuration is described in single YAML~\cite{yaml} files~\cite{load_testing_tools_rus}. Additionally, Yandex Tank, unlike JMeter or Gatling, can utilize different engines to generate a load, such as those used by Phantom, BFG, and Pandora. For example, the Phantom engine~\cite{phantom} can generate a load of more than 100,000 requests per second.
+Additionally, the YandexTank provides a web server as an REST API for the tank commands~\cite{yandex_tank_api}.
+Due to the fact that the whole test scenario is described in a single file and it already has a REST API implementation, it will be used as the primary load-generation tool and will be tuned for this study.
 
 \section{Reliability patterns}\label{sec:reliability}
-Reliability patterns ensure the stability and resilience of high-load systems.
-But each pattern has its own tune parameters and in case of multiple patterns implementation it is challenging to handle all configurations.
+Reliability patterns ensure the stability and resiliency of high-performance systems.
+Beyer B. et al.~\cite{google_sre}, examined a number of such strategies, including rate limiting, retry strategy, circuit breaker, and load balancing. Similar concepts are presented in ~\cite{reliability_patterns}, regarding circuit-breaker and retry patterns. Although the authors focus on best practices for implementing these approaches, most of these already have a real implementation in the most popular programming languages. For instance, Resilience4j~\cite{resilience4j} is a Java library that implements various reliability patterns, including the circuit breaker, retry strategy, etc. Circuitbreaker~\cite{circuitbreaker} is a Python-based library that offers a circuit breaker pattern implementation. However, despite the fact that the implementation already exists, all these patterns must be configured. Each pattern has its own tuning parameters, and in the case of an implementation with multiple patterns, it is challenging to manage all the configurations simultaneously. N. C. Mendonca, C. M. Aderaldo, J. Camara and D. Garlan~\cite{circuit_breaker} outlines that circuit-breakers have several tuning parameters, such as the sleep window, the error percentage threshold, and others.
+At the same time, the authors tells that load balancers can have multiple strategies of balancing, such as round-robin, ratio, etc. Retry strategy can be configured by maximum number and interval of retries.
 
-In order to properly withstand high load Beyer B. et al.~\cite{google_sre} examine corresponding strategies.
-They present several approaches, including rate-limit, retry strategy, circuit-breaker, and load-balancing.
-The authors offer many ideas on how to implement them appropriately. Different implementations are available for various programming languages, including Java, Go, and Python.
-Similar ideas are presented in~\cite{reliability_patterns} regarding circuit-breaker and retry patterns, although the authors do not focus on best practices for configuring these approaches.
-N. C. Mendonca, C. M. Aderaldo, J. Camara and D. Garlan~\cite{circuit_breaker} outlines that circuit-breakers have several tuning parameters, such as the sleep window, the error percentage threshold, and others.
-At the same time, load balancers can have multiple strategies of balancing, such as round-robin, ratio, etc.
-Retry strategy can be configured by maximum number and interval of retries.
-The parameters of these patterns produce different throughput in different combinations, and it is crucial to understand how to find the most performable.
+\section{Tool selection}\label{sec:tool-selection}
+\subsection{Backend Service Implementation}
+Spring Framework~\cite{spring} is the primary choice for implementing web services.
+Kaluža, M., Kalanj, M. and Vukelić, B.~\cite{frameworks} explains that in comparison to Django and Rails, the Spring Framework exhibits high scalability and comprehensive documentation.
+Additionally, the authors emphasize that the Spring Framework supports multiple programming languages, including Java, Kotlin, and Groovy.
 
-\section{Orchestrator services}\label{sec:service-orchestrator}
-Orchestrator services are needed for automated configuring, coordinating and managing software.
-Consul~\cite{consul} is the most popular tool in the industry for real-time configuration.
-It is widely used in microservices architecture and serves as a discovery tool, monitoring the state of services and attempting to stabilize them in case of issues.
-However, the aim of my service is configuring specific reliability patterns and providing some standard for them, while Consul does not provide any tools for that.
+\subsection{Database management systems}
+While InfluxDB~\cite{influxdb} , a database management system (DBMS) native to Yandex Tank, is selected as the primary database for metric storage, the PostgresSQL~\cite{postgresql} is selected as the main relational database management system. Andreas Ohlsson and Mikael Persson~\cite{dbs_comparison} showing that, in comparison to other DBMS, PostgreSQL has the lowest number of operations and shortest execution time for various workloads.
 
-\section{Service implementation}\label{sec:implementation}
-First, Spring framework is the main choice of the web services implementation.
-Kaluža, M., Kalanj, M. and Vukelić, B.~\cite{frameworks} explains that in comparison to Django and Rails, Spring has high scalability and high-quality documentation.
-Additionally, the authors point out that Spring supports multiple languages, such as Java, Kotlin and Groovy.
-
-Second, service is divided into microservices due to machine workload during load test~\cite{load_testing_tips}.
-It can affect the performance of configuration orchestration logic.
-In microservice architecture the configuration service will be stable in case of load generation system throttling
-
-Third, service based on event-driven architecture~\cite{event_driven} because of the constant configuration changes and the need for real-time awareness.
-According to this architecture, it is required to use a stream of events and the authors suggest using a message broker for its implementation.
-A Kafka tool is used to implement it due to high throughput and fault tolerance~\cite{kafka_choose}.
-
-Fourth, the service infrastructure is constructed by a combination of Docker and Kubernetes.
-Docker is used for containerization that allows easier deployment and scalability~\cite{docker_start}.
-Kubernetes is used for orchestrating and managing these containers~\cite{kubernetes}.
-It provides reliability features, such as self-healing and automatic scaling.
+\subsection{Infrastructure}
+Docker is a containerization mechanism that facilitates easier deployment and scaling~\cite{docker_start}.
+Kubernetes, on the other hand, is used to orchestrate and manage these containers~\cite{kubernetes}, providing reliability features such as self-healing and automated scaling.
 
 \section{Conclusion}\label{sec:review_conclusion}
-To test the fault tolerance of the service, developers can use a variety of ready-made services. However, only Yandex Tank offers a fully-functional REST API for seamless integration with other systems.
-The use of this tool requires additional machine tuning, which complicates its use, making it more complex.
+To test the fault tolerance of the service, developers may use a variety of ready-made services. However, only Yandex Tank offers a fully-featured REST API for smooth integration with other systems.
 
-To increase the fault tolerance of the system, various reliability models and their potential configurations were studied.
-Although Consul exists for configuring the system, it does not provide any interface for configuring specific reliability patterns.
-
+To enhance the resilience of the system, different reliability patterns and their potential configurations have been studied. Many of these patterns already have implementations and due to this fact it is more preferable to utilize existing implementations and focus on the correct configuration in order to achieve maximum performance
 This project aims to implement a tool that will utilize the tools and techniques discussed in this chapter.

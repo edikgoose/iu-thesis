@@ -1,4 +1,3 @@
-\usepackage{graphicx}
 \graphicspath{{figs/}} %path to images
 \chapter{System Design}
 \label{ch:lr}
@@ -17,8 +16,8 @@ To find the most suitable configuration of the system for high loads, it is nece
 \subsection{The system should be able to visualise results of the tests}\label{subsec:req-visualise-load-test}
 The results of a load test are typically a time series of the system performance metrics, such as response time and number of errors. One of the best method for analysing time series data is by visualising them in graphs.
 
-\subsection{The system should be able to dynamically configure reliability patterns of the system}\label{subsec:req-configure}
-Due to the fact that performance of reliability patterns depends on configuration parameters, it is extremely important to be able to dynamically change parameters during the testing in order to evaluate performance under high load
+\subsection{The system should be able to configure reliability patterns of the system}\label{subsec:req-configure}
+Due to the fact that performance of reliability patterns depends on configuration parameters, it is extremely important to be able to change parameters during the testing in order to evaluate performance under high load
 
 \subsection{The system should easily be able to deploy on any server.}\label{subsec:req-deploy}
 Deploying and configuring all necessary tools for load testing individually is comprehensive and typically requires specialized skills. To lower the entry barrier the system should be able to be deployed as a single unit.
@@ -37,7 +36,7 @@ The architecture of the system is presented on \ref{fig:architecture}. All compo
 \section{System Components}\label{sec:system-components}
 This section discusses all the tools and technologies used in the systems, as well as the reasons why they are appropriate for the project.
 \subsection{Yandex Tank API}\label{subsec:ya-api}
-Yandex Tank is popular open source solution for load testing. It has convinient format of load testing configuration via yaml files. Also it can generate more the 100000 requests per seconds. But it does not provide ability to manipulate load test flow and can't be easily injected into automated web systems. Therefore, Yandex Tank API was used. It is wrapper aroung yandex tank and allows to start, stop, pause, resume load test. Additionally, it provides user-friendly REST API. All test results are saved into time series database InfluxDB described in subsection \ref{subsec:influx}
+Yandex Tank is popular open source solution for load testing. It has convinient format of load testing configuration via YAML files. Also it can generate more the 100000 requests per seconds. But it does not provide ability to manipulate load test flow and can't be easily injected into automated web systems. Therefore, Yandex Tank API was used. It is wrapper aroung yandex tank and allows to start, stop, pause, resume load test. Additionally, it provides user-friendly REST API. All test results are saved into time series database InfluxDB described in subsection \ref{subsec:influx}
 
 \subsection{InfluxDB}\label{subsec:influx}
 The load test result is a timeline of application stats. InfluxDB is the tool that's optimized for storing that type of data. It does not require any external dependencies and it is written in Rust programming language, so it works fast. Additionaly, Yandex Tank support this database and can write results directly to it.
