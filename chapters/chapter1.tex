@@ -2,52 +2,54 @@
 \label{ch:intro}
 \chaptermark{Optional running chapter heading}
 
-This chapter provides background information on the topic of Site Reliability Engineering (SRE), including its usability and configuration.
-The chapter discusses load testing, its goals for reliability testing, and its use. In addition, it provides a preview of the content of each subsequent chapter.
+This chapter provides background information on the topic of Site Reliability Engineering (SRE), including its usability and configuration. The chapter discusses load testing, its goals for reliability testing, and its use. In addition, it provides a preview of the content of each subsequent chapter.
+
 
 \section{Consequences of high load on web services}\label{sec:consequences-of-high-load-on-web-services}
-During the software development, it is important to consider the fact that all web services have a load limit - the maximum number of users that the service can handle simultaneously. After this limit is reached, the service may no longer provide the expected level of quality, which could have a negative impact on the business. For instance, it has been calculated that a one-second latency in the response time of Amazon's services could cost the company \$1.6 billion~\cite{one_second_article}.
+During the software development, it is important to consider the fact that all web services have a load limit. This can be the maximum number of users, or the maximum number of requests per seconds, or something else. After this limit is reached, the service may no longer provide the expected level of quality, which could have a negative impact on the business. For instance, it has been calculated that a one-second latency in the response time of Amazon's services could cost the company \$1.6 billion in sales each year~\cite{one_second_article}.
+Most web services become unavailable after reaching their load limit, responding with an error. As a result, they cease to provide the service altogether. It is inevitable, but service can suspend the occurence of such scenario by applying site-reliability engineering practices.
 
 
 \section{Site reliability engineering}\label{sec:site-reliability-engineering}
-SRE~\cite{sre_main_site} practices have been proposed by Google in 2003 with the aim of increasing the fault tolerance of web services. These practices include a number of measures, such as defining and measuring reliability targets, monitoring, alerting, and, last but not least, performance optimization. The practices suggest certain reliability patterns that can help to reduce the negative effects of high loads on users.
+In 2003, Google proposed SRE~\cite{google_sre} practices with the aim to enhance the fault tolerance of web services. These practices include a number of measures, such as defining and measuring reliability targets, monitoring, alerting, and, last but not least, performance optimization. The practices suggest certain reliability patterns that can help to reduce the negative effects of high loads on users.
 The most common reliability patterns include:
 
 \begin{itemize}
-\item \textbf{Circuit breaker}. It is placed in front of a service and has three states: open, closed, and half-open. By default, the circuit breaker is open, but if the service starts to respond with errors, it will move to the close state and block all requests. After a period of time, it move to the half-open state, allowing some requests to pass. If these requests are successful, the circuit-breaker will become open, otherwise, it return to the close state.
-\item \textbf{Retry strategy}. If the service returns with an error, the request will be retried after a specified period of time.
-\item \textbf{Rate-limit}. If the service receives too many requests, it will limit the rate at which requests are processed.
+    \item \textbf{Circuit breaker}~\cite{circuit_breaker_about}. It is placed in front of a service and has three states: open, closed, and half-open. By default, the circuit breaker is open, but if the service starts to respond with errors, it will move to the close state and block all requests. After a period of time, it move to the half-open state, allowing some requests to pass. If these requests are successfully processed, the circuit-breaker will open. Otherwise, it will return to the close state.
+    \item \textbf{Retry strategy}~\cite{retry_about}. If the service returns with an error, the request will be retried after a specified period of time.
+    \item \textbf{Rate-limit}~\cite{rate_limit_about}. If the service receives too many requests, it will limit the rate at which requests are processed.
 \end{itemize}
 
 All these reliability patterns should be properly configured. If a software system has many such patterns it can be difficult to maintain them, as the configuration of each one may result in different performance of the system.
 
+
 \section{Load Testing}\label{sec:load-testing}
-However, in order to properly configure a reliability patters, it is necessary to test each configuration under high load conditions and all tests should repeat real usage scenarios. Load testing~\cite{load_testing_wiki} is needed for creation of a manageable high load on a service in order to observe its behavior and identify the maximum point of load. There are three stages of using load testing:
+To properly configure a reliability patters, it is necessary to test each configuration under high load conditions and all tests should repeat realistic usage scenarios. Load testing~\cite{load_testing_tips} is needed for creation of a manageable high load on a service in order to observe its behavior and identify the maximum point of load. There are three stages of using load testing:
 
 \begin{itemize}
-\item Test Design: Load test scenarios should be as similar to real-world user requests as possible. In most cases, user activity is aggregated into common metric, such as the number of requests per second.
-\item Test Execution: Load testing requires a significant amount of resources, and therefore, the allocated hardware must be properly configured for high loads. Additionally, load testing tool must be deployed and configured on machine.
-\item Test Analysis: During load testing, a variety of metrics and application logs are collected and aggregated to allow for analysis of the state of the service under stress.
+    \item Test Design. Load test scenarios should be as similar to real-world user requests as possible. In most cases, user activity is aggregated into a common metric, typically the number of requests per second.
+    \item Test Execution. Load testing requires a significant amount of resources, and therefore, the allocated hardware must be properly configured for high loads. Additionally, load testing tool must be deployed and configured on machine.
+    \item Test Analysis. During load testing, a variety of metrics and application logs are collected and aggregated to allow for analysis of the state of the service under stress.
 \end{itemize}
 
 Before starting the testing it is necessary to choose the tool for load testing. They are divided into:
 \begin{itemize}
-\item Local. It is deployed on your machine or server by yourself. All stages of load testing is controlled by you.
-\item Cloud-based. Such tools provides load testing as a service and hide test execution part as black box.
+    \item Self-hosted. It is deployed on machine or server by yourself. All stages of load testing is controlled by you. Usually these tools are open source. For example, JMeter~\cite{jmeter} is a self-hosted tool that use your machine resources.
+    \item Cloud-based. Such tools provides load testing as a service and hide test execution stage as a black box. Usually cloud-based solutions are paid because they provide load testing as a service, taking over computing power and deploying testing tools. For instance, BlazeMeter~\cite{blazemeter} is a cloud-based solution that needs only the configuration of the load test to execute it.
 \end{itemize}
 
-For large companies, it is more advantageous to use cloud-based solutions due to their more convenient usage and funding capabilities.
-And for smaller projects with limited funding, it is essential to utilize open-source solutions, deploy them on a local machine, and test the service under the load.
+To use cloud-based solutions, it is only necessary to pay money for their use. This is a simple and convenient option, but if the cost is unacceptable, it may be necessary to utilize open source, self-hosted tools. In this scenario, the only expences would be for machine resources. However, deploying and using self-hosted tools correctly requires expertise in DevOps~\cite{devops}, which requires additional funds for specialist resources.
 
-But to properly deploy and configure local load testing tool requires skills in this sphere
 
-\section{Purpose of study}\label{sec:purpose}
-In order to properly implement and configure reliable patterns, a high level of expertise in SRE is necessary. Additionally, in order to test the effectiveness of these patterns, System Administration and DevOps experience are also required.
-The purpose of this study is to present a universal tool that can be easily deployed on any system and provide functionality for configuring and test site reliability patterns
+\section{A system for reproducible load testing scenarios}\label{sec:purpose}
+It has been previously observed that there are already solutions available for configuring reliability patterns and solutions for executing load tests. However, if an engineer wants to test their system under the load with different configuration setups, they must deploy and use these tools separately and store in different place the link between the specific system configurations and their load configurations. If, for example, they forget to change system configuration for suitable load test, the incorrect results will be obtained. To avoid this situation it is necessary to develop a system that:
+\begin{itemize}
+    \item Stores load test and system configurations together as a single scenario.
+    \item Reproduces the scenario by setting the system configuration and running the load test.
+    \item Stores the results of the executed scenarios.
+    \item Can be easily deployed and integrated into existing systems.
+\end{itemize}
+
 
 \section{Structure outline}\label{sec:structure-outline}
-Chapter 2 provides an overview of the most popular reliability patterns and their implementation.
-Chapter 3 outlines the architectural design of the system.
-Chapter 4 presents the implementation of the system and an example of its usage.
-Chapter 5 discusses difficulties and limitations encountered during development.
-Chapter 6 concludes the paper.
+Chapter 2 provides an overview of the most popular reliability patterns and their implementation, presents a comparison of different load generation tools and compares different tools for configuration. Chapter 3 outlines the architectural design of the system. Chapter 4 presents the implementation of the system and an example of its usage. Chapter 5 discusses difficulties and limitations encountered during development. Chapter 6 concludes the paper with final comments and future work.

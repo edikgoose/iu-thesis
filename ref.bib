@@ -11,22 +11,16 @@
     shorttitle = {Site Reliability Engineering},
     title = {Site Reliability Engineering: How Google Runs Production Systems}}
 
-@online{load_testing_web_sites,
-    abstract = {Developers typically measure a Web application's quality of service in terms of response time, throughput, and availability. Poor {QoS} translates into frustrated customers, which can lead to lost business opportunities. At the same time, company expenditures on a Web site's {IT} infrastructure are a function of the site's expected traffic. Ideally, you want to spend enough, and no more, allocating resources where they will generate the most benefit. For example, you should not upgrade your Web servers if customers experience most delays in the database server or load balancer. Thus, to maximize your {ROI}, you must determine when and how to upgrade {IT} infrastructure. One way to assess {IT} infrastructure performance is through load testing, which lets you assess how your Web site supports its expected workload by running a specified set of scripts that emulate customer behavior at different load levels. I describe the {QoS} factors load testing addresses, how to conduct load testing, and how it addresses business needs at several requirement levels.},
-    langid = {american},
-    title = {Load testing of Web sites},
-    url = {https://ieeexplore.ieee.org/abstract/document/1020328/},
-    urldate = {2023-09-24},
-    bdsk-url-1 = {https://ieeexplore.ieee.org/abstract/document/1020328/}}
-
-@online{load_testing_tips,
-    abstract = {Assessing how large-scale software systems behave under load is essential because many problems cannot be uncovered without executing tests of large volumes of concurrent requests. Load-related problems can directly affect the customer-perceived quality of systems and often cost companies millions of dollars. Load testing is the standard approach for assessing how a system behaves under load. However, designing, executing and analyzing a load test can be very difficult due to the scale of the test (e.g., simulating millions of users and analyzing terabytes of data). Over the past decade, we have tackled many load testing challenges in an industrial setting. In this paper, we document the challenges that we encountered and the lessons that we learned as we addressed these challenges. We provide general guidelines for conducting load tests using an analytics-driven approach. We also discuss open research challenges that require attention from the research community. We believe that our experience can be beneficial to practitioners and researchers who are interested in the area of load testing.},
-    langid = {american},
-    shorttitle = {Analytics-Driven Load Testing},
-    title = {Analytics-Driven Load Testing: An Industrial Experience Report on Load Testing of Large-Scale Systems},
-    url = {https://ieeexplore.ieee.org/document/7965448},
-    urldate = {2023-09-24},
-    bdsk-url-1 = {https://ieeexplore.ieee.org/document/7965448}}
+@INPROCEEDINGS{load_testing_tips,
+    author={Chen, Tse-Hsun and Syer, Mark D. and Shang, Weiyi and Jiang, Zhen Ming and Hassan, Ahmed E. and Nasser, Mohamed and Flora, Parminder},
+    booktitle={2017 IEEE/ACM 39th International Conference on Software Engineering: Software Engineering in Practice Track (ICSE-SEIP)},
+    title={Analytics-Driven Load Testing: An Industrial Experience Report on Load Testing of Large-Scale Systems},
+    year={2017},
+    volume={},
+    number={},
+    pages={243-252},
+    keywords={Testing;Radiation detectors;Software systems;Guidelines;Production;Industries;Aggregates;load testing;test analysis;performance testing;mining software repositories},
+    doi={10.1109/ICSE-SEIP.2017.26}}
 
 @INPROCEEDINGS{load_testing_tools,
     author={Abbas, Rabiya and Sultan, Zainab and Bhatti, Shahid Nazir},
@@ -82,19 +76,19 @@
     title = {How One Second Could Cost Amazon \$1.6 Billion In Sales},
     url = {https://www.fastcompany.com/1825005/how-one-second-could-cost-amazon-16-billion-sales},
     urldate = {2023-11-09},
+    year = {2012},
     bdsk-url-1 = {https://www.fastcompany.com/1825005/how-one-second-could-cost-amazon-16-billion-sales}}
 
 @article{load_testing_tools_rus,
-    abstract = {В статье рассмотрены основные аспекты тестирования производительности программных продуктов. Авторами приводится классификация методов тестирования. При этом основное внимание уделяется так называемому нагрузочному тестированию. Нагрузочное тестирование проводится с целью определения степени соответствия системы нефункциональным требованиям, таким как максимальное количество одновременных пользователей, время отклика информационного сервиса и т. п. В работе подробно описаны различные виды нагрузочных тестов, а также представлена методика тестирования для каждого вида, предложен набор показателей для классификации инструментов тестирования, на основе которого приведен сравнительный анализ существующих инструментальных средств для проведения нагрузочного тестирования.},
-    author = {Мясников, С. О. and Намиот, Д. Е.},
+    author = {S. Myasnikov. and D. Namiot},
     date = {2018},
     issn = {1993-8314, 2687-0649},
-    journaltitle = {Прикладная Информатика},
+    journaltitle = {Prikladnaya informatik},
     keywords = {Автоматизация Тестирования, Нагрузочное Тестирование, Отказоустойчивость, Производительность},
     langid = {russian},
     number = {1},
     pages = {92--102},
-    title = {Инструменты нагрузочного тестирования},
+    title = {On load testing tools},
     url = {https://elibrary.ru/item.asp?id=32601827},
     urldate = {2023-11-14},
     volume = {13},
@@ -107,6 +101,7 @@
     titleaddon = {Consul by {HashiCorp}},
     url = {https://www.consul.io/},
     urldate = {2023-11-09},
+    year = {2023},
     bdsk-url-1 = {https://www.consul.io/}
 }
 
@@ -119,6 +114,7 @@
     title = {yandex-load/phantom},
     url = {https://github.com/yandex-load/phantom},
     urldate = {2023-11-14},
+    year = {2023},
     bdsk-url-1 = {https://github.com/yandex-load/phantom}}
 
 @online{kubernetes,
@@ -128,6 +124,7 @@
     titleaddon = {Kubernetes},
     url = {https://kubernetes.io/docs/concepts/overview/},
     urldate = {2023-11-14},
+    year = {2023},
     bdsk-url-1 = {https://kubernetes.io/docs/concepts/overview/}
 }
 
@@ -207,24 +204,12 @@
     bdsk-url-1 = {https://docs.docker.com/get-started/}
 }
 
-@online{load_testing_wiki,
-    booktitle = {Wikipedia},
-    date = {2024-03-10},
-    langid = {english},
-    note = {Page Version {ID}: 1212888659},
-    rights = {Creative Commons Attribution-{ShareAlike} License},
-    title = {Software load testing},
-    url = {https://en.wikipedia.org/w/index.php?title=Software_load_testing&oldid=1212888659},
-    urldate = {2024-03-18},
-    bdsk-url-1 = {https://en.wikipedia.org/w/index.php?title=Software_load_testing&oldid=1212888659}
-}
 
 @online{yaml,
-    title = {How One Second Could Cost Amazon \$1.6 Billion In Sales},
-    url = {https://www.fastcompany.com/1825005/how-one-second-could-cost-amazon-16-billion-sales},
+    title = {The Official {YAML} Web Site},
+    url = {https://yaml.org/},
     urldate = {2024-03-21},
-    bdsk-url-1 = {https://www.fastcompany.com/1825005/how-one-second-could-cost-amazon-16-billion-sales}}
-
+    bdsk-url-1 = {https://yaml.org/}}
 
 
 @online{resilience4j,
@@ -300,10 +285,75 @@
     year={2019}
 }
 
+@article{circuit_breaker_about,
+    abstract = {Resilience is one of the important issues in the implementation of microservices architecture, and to handle it, various approaches and solutions are available. A circuit breaker is a solution to handle failure in microservices and is now widely implemented both as a library and as a pattern embedded in the service and client modules. Despite the widespread use of circuit breaker, the research on circuit breaker is relatively less than research subject on other microservices area, or in microservices resiliency. This article provides an overview of recent research in circuit breaker, map the research subject, and find the opportunities for future research. The research is conducted using a systematic map study but the results focused on extract the knowledge and find important keywords to build a conceptual overview of the research field circuit breaker. The result shows that there are five categories of research subjects which are concept, strategy, management, implementation, and products. After exploring each category, we can propose the opportunity in enhancing the use of circuit breaker in microservices architecture, by explore the potential implementation of proxy circuit breaker.},
+    author = {{Falahah} and Surendro, Kridanto and Sunindyo, Wikan Danar},
+    date = {2021-02},
+    doi = {10.1088/1757-899X/1077/1/012065},
+    issn = {1757-899X},
+    journaltitle = {{IOP} Conf. Ser.: Mater. Sci. Eng.},
+    langid = {english},
+    note = {Publisher: {IOP} Publishing},
+    number = {1},
+    pages = {012065},
+    shorttitle = {Circuit Breaker in Microservices},
+    title = {Circuit Breaker in Microservices: State of the Art and Future Prospects},
+    url = {https://dx.doi.org/10.1088/1757-899X/1077/1/012065},
+    urldate = {2024-05-06},
+    volume = {1077},
+    bdsk-url-1 = {https://dx.doi.org/10.1088/1757-899X/1077/1/012065}
+}
 
-@online{sre_main_site,
-    title = {Google - Site Reliability Engineering},
-    url = {https://sre.google/},
-    urldate = {2024-03-21},
-    bdsk-url-1 = {https://sre.google/}
+@INPROCEEDINGS{retry_about,
+    author={Mendonca, Nabor C. and Aderaldo, Carlos M. and Camara, Javier and Garlan, David},
+    booktitle={2020 IEEE International Conference on Software Architecture (ICSA)},
+    title={Model-Based Analysis of Microservice Resiliency Patterns},
+    year={2020},
+    volume={},
+    number={},
+    pages={114-124},
+    keywords={Circuit breakers;Resilience;Integrated circuit modeling;Probabilistic logic;Transient analysis;Circuit faults;Analytical models;resiliency patterns;microservice architecture;probabilistic model checking},
+    doi={10.1109/ICSA47634.2020.00019}}
+
+@INPROCEEDINGS{rate_limit_about,
+    author={El Malki, Amine and Zdun, Uwe and Pautasso, Cesare},
+    booktitle={2022 IEEE International Conference on Service-Oriented System Engineering (SOSE)},
+    title={Impact of API Rate Limit on Reliability of Microservices-Based Architectures},
+    year={2022},
+    volume={},
+    number={},
+    pages={19-28},
+    keywords={Cloud computing;Adaptation models;Limiting;Service-oriented systems engineering;Scalability;Microservice architectures;Reliability engineering;API Rate Limit;Microservices;Cloud;Reliability;Modeling},
+    doi={10.1109/SOSE55356.2022.00009}}
+
+@online{jmeter,
+    title = {Apache {JMeter} - Apache {JMeter}{\texttrademark}},
+    url = {https://jmeter.apache.org/},
+    urldate = {2024-05-06},
+    year = {2024},
+    bdsk-url-1 = {https://jmeter.apache.org/}}
+
+@online{blazemeter,
+    title = {{BlazeMeter} Continuous Testing {\textbar} {BlazeMeter} by Perforce},
+    url = {https://www.blazemeter.com/},
+    urldate = {2024-05-06},
+    year = {2024},
+    bdsk-url-1 = {https://www.blazemeter.com/}}
+
+@inproceedings{devops,
+    author = {Jabbari, Ramtin and bin Ali, Nauman and Petersen, Kai and Tanveer, Binish},
+    title = {What is DevOps? A Systematic Mapping Study on Definitions and Practices},
+    year = {2016},
+    isbn = {9781450341349},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/2962695.2962707},
+    doi = {10.1145/2962695.2962707},
+    abstract = {Context: DevOps, the combination of Development and Operations, is a new way of thinking in the software engineering domain that recently received much attention. Given that DevOps is a new term and novel concept recently introduced, no common understanding of what it entails has been achieved yet. Consequently, definitions of DevOps often only represent a part that is relevant to the concept.Objective:This study aims to characterize DevOps by exploring central components of DevOps definitions reported in the literature, specifying practices explicitly proposed for DevOps and investigating the similarities and differences between DevOps and other existing methods in software engineering.Method: A systematic mapping study was conducted that used six electronic databases: IEEE, ACM, Inspec, Scopus, Wiley Online Library and Web of Science.Result: 44 studies have been selected that report a definition of DevOps, 15 studies explicitly stating DevOps practices, and 15 studies stating how DevOps is related to other existing methods. Papers in some cases stated a combination of a definition, practices, and relations to other methods, the total number of primary studies was 49.Conclusion: We proposed a definition for DevOps which may overcome inconsistencies over the various existing definitions of individual research studies. In addition, the practices explicitly proposed for DevOps have been presented as well as the relation to other software development methods.},
+    booktitle = {Proceedings of the Scientific Workshop Proceedings of XP2016},
+    articleno = {12},
+    numpages = {11},
+    keywords = {DevOps definition, DevOps practice, Software development method},
+    location = {Edinburgh, Scotland, UK},
+    series = {XP '16 Workshops}
 }
