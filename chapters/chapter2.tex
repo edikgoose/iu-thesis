@@ -2,44 +2,71 @@
 \label{ch:lr}
 \chaptermark{Second Chapter Heading}
 
-This chapter investigates the available solutions on the market and evaluates what novelty my solution provides.
-Additionally, to further implementation of the service it is required to choose appropriate tools and approaches for development.
-This chapter is organized in such way:
-
+This chapter investigates the reliability patterns and load testing.
+It is organized in such way:
 \begin{itemize}
-    \item~\ref{sec:load_generation} reviews modern load generation tools.
-    \item~\ref{sec:reliability} gives a brief overview of reliability patterns configuration.
-    \item~\ref{sec:tool-selection} outlines the tools and technologies for implementing service.
+    \item~\ref{sec:reliability} gives a brief overview of reliability patterns and their configurations.
+    \item~\ref{sec:load_generation} provides the ideas about load testing and a comparison of modern load generation tools.
     \item~\ref{sec:review_conclusion} provides a conclusion of this chapter.
 \end{itemize}
 
-\section{Load Generation Tool}\label{sec:load_generation}
-The main criteria for selecting a load generation tool are its ability to generate loads and configure test scenarios through configuration files.
-R. Abbas, Z. Sultan, and S. N. Bhatti~\cite{load_testing_tools} provide a comprehensive comparison of modern load generation tools, using various criteria, including different protocol support, costs, and ease of use.
-Based on a comparison, the most suitable tool is JMeter~\cite{jmeter}, due to its multiple scripting languages, user-friendly graphical interface, and open-source nature. Additionally, the authors noted the Gatling tool due to its flexible load generation capabilities. However, the authors did not mention the Yandex Tank tool~\cite{yandex_tank}. It is an open-source tool that is easy to use because test configuration is described in single YAML~\cite{yaml}. Additionally, Yandex Tank, unlike JMeter or Gatling, can utilize different engines to generate a load, such as those used by Phantom, BFG, and Pandora files~\cite{load_testing_tools_rus}. For example, the Phantom engine~\cite{phantom} can generate a load of more than 100,000 requests per second.
-Additionally, the YandexTank provides a web server as an REST API for the tank commands~\cite{yandex_tank_api}.
-Due to the fact that the whole test scenario is described in a single file and it already has a REST API implementation, it will be used as the primary load-generation tool and will be tuned for this study.
 
 \section{Reliability patterns}\label{sec:reliability}
 Reliability patterns ensure the stability and resiliency of high-performance systems.
-Beyer B. et al.~\cite{google_sre}, examined a number of such strategies, including rate limiting, retry strategy, circuit breaker, and load balancing. Similar concepts are presented in ~\cite{reliability_patterns}, regarding circuit-breaker and retry patterns. Although the authors focus on best practices for implementing these approaches, most of these already have a real implementation in the most popular programming languages. For instance, Resilience4j~\cite{resilience4j} is a Java library that implements various reliability patterns, including the circuit breaker, retry strategy, etc. Circuitbreaker~\cite{circuitbreaker} is a Python-based library that offers a circuit breaker pattern implementation. However, despite the fact that the implementation already exists, all these patterns must be configured. Each pattern has its own tuning parameters, and in the case of an implementation with multiple patterns, it is challenging to manage all the configurations simultaneously. N. C. Mendonca, C. M. Aderaldo, J. Camara and D. Garlan~\cite{circuit_breaker} outlines that circuit-breakers have several tuning parameters, such as the sleep window, the error percentage threshold, and others.
-At the same time, the authors tells that load balancers can have multiple strategies of balancing, such as round-robin, ratio, etc. Retry strategy can be configured by maximum number and interval of retries.
+Beyer B. et al.~\cite{google_sre}, examined a number of such strategies, including rate limiting, retry strategy, circuit breaker, and load balancing. Similar concepts are presented in ~\cite{reliability_patterns}, regarding circuit-breaker and retry patterns.
+N. C. Mendonca, C. M. Aderaldo, J. Camara and D. Garlan~\cite{circuit_breaker} outlines that circuit-breaker can have several tuning parameters, such as the sleep window, the error percentage threshold, and others. But in real implementations of the same pattern set of tuning params can be different. This set can depend on specific implementation or features of programming language.
 
-\section{Tool selection}\label{sec:tool-selection}
-\subsection{Backend Service Implementation}
-Spring Framework~\cite{spring} is the primary choice for implementing web services.
-Kaluža, M., Kalanj, M. and Vukelić, B.~\cite{frameworks} explains that in comparison to Django and Rails, the Spring Framework exhibits high scalability and comprehensive documentation.
-Additionally, the authors emphasize that the Spring Framework supports multiple programming languages, including Java, Kotlin, and Groovy.
+\begin{longtable}[c]{|p{4.5cm}|p{5.2cm}|p{5.2cm}|}
+    \hline
+    \textbf{Abstract parameter} & \textbf{Resilience4j} & \textbf{Circuit breaker library} \\
+    \endhead
+    \hline
+    Timeout                     & maxWaitDuration       & recovery\_timeout                \\
+    \hline
+    Error Percent Threshold     & failureRateThreshold  & failure\_threshold               \\
+    \hline
+    Request Volume threshold    & minimumNumberOfCalls  & -                                \\
+    \hline
+    Sleep window                & slidingWindowSize     & -                                \\
+    \hline
+    - & \begin{tabular}[c]{@{}l@{}}
+            recordExceptions,\\ slidingWindowType
+    \end{tabular} & \begin{tabular}[c]{@{}l@{}}
+                        expected\_exception,\\ fallback\_function
+    \end{tabular} \\
+    \hline
+    \caption{Circuit breaker parameters for different implementations}
+    \label{tab:patterns_table} \\
+\end{longtable}
 
-\subsection{Database management systems}
-While InfluxDB~\cite{influxdb} , a database management system (DBMS) native to Yandex Tank, is selected as the primary database for metric storage, the PostgresSQL~\cite{postgresql} is selected as the main relational database management system. Andreas Ohlsson and Mikael Persson~\cite{dbs_comparison} showing that, in comparison to other DBMS, PostgreSQL has the lowest number of operations and shortest execution time for various workloads.
+Table~\ref{tab:patterns_table} shows accordance of configuration parameters for abstract circuit breaker~\cite{circuit_breaker} and for real implementation in Java~\cite{resilience4j} and Python~\cite{circuitbreaker}. It shows that in real implementation we can have incomplete or more enhanced set of parameters and it's hard to create generic number of configuring params for all implementations.
 
-\subsection{Infrastructure}
-Docker is a containerization mechanism that facilitates easier deployment and scaling~\cite{docker_start}.
-Kubernetes, on the other hand, is used to orchestrate and manage these containers~\cite{kubernetes}, providing reliability features such as self-healing and automated scaling.
+
+\section{Load testing}\label{sec:load_generation}
+To properly select a load generation tool, it is necessary to understand the goals of load testing. Daniel A.Menasc`e~\cite{load_testing_base} explains that load testing allows to measure the performance of a system: the average response time and throughput as a certain number of concurrent requests. Therefore, it is crucial for a load testing tool to generate a specified number of requests per second and presents the results as the response time and the maximum RPS that the server can handle.
+R. Abbas, Z. Sultan, and S. N. Bhatti~\cite{load_testing_tools} provide a comprehensive comparison of modern load generation tools, using various criteria, including different protocol support, costs, and ease of use. They compared such tools as JMeter~\cite{jmeter}, Siege~\cite{siege}, etc. Additionally, S. Myasnikov and D. Namiot~\cite{load_testing_tools_rus} present a similar comparison, but with an extended number of tools, such as Yandex Tank~\cite{yandex_tank} and Gatling~\cite{gatling}. All these tools meet the conditions specified by Daniel A.Menasc`e, and they differ from each other in terms of the implementation and the number of additional features. Table~\ref{tab:load_tools} shows a compiled comparison of open-source tools of the discussed studies:
+As we can see all tools are suitable for the concrete scenario. For example, if it is necessary to quickly execute a simple load test, Siege~\cite{siege} can be used. At the same time, Jmeter~\cite{jmeter} can be used for complex and several parallel tests. However, all these tools treat the tested system as a black box, and do not know anything about its implementation or configuration. For instance, they cannot show or change the configuration of reliability patterns during the test.
+
+\begin{longtable}[c]{|p{4cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|}
+    \hline
+    \textbf{Feature}        & \textbf{JMeter}             & \textbf{Yandex Tank} & \textbf{Gatling}                          & \textbf{Siege}                      \\
+    \endhead
+    \hline
+    Application support     & Databases, Web              & Web                  & Databases, Web                            & Web                                 \\
+    \hline
+    Built-in analyzing tool & Yes                         & No                   & No                                        & Yes                                 \\
+    \hline
+    Interface               & GUI                         & Config files, REST   & Config files, GUI                         & CLI                                 \\
+    \hline
+    Drawbacks               & Consumes much time to setup & Supports only HTTP   & Require knowledge of programming language               & Supports only the simplest scenario              \\
+    \hline
+    Platform support        & Everything with JVM         & UNIX                 & Everything with JVM                       & UNIX                                \\
+    \hline
+    \caption{Comparison of load testing tool}
+    \label{tab:load_tools} \\
+\end{longtable}
+
 
 \section{Conclusion}\label{sec:review_conclusion}
-To test the fault tolerance of the service, developers may use a variety of ready-made services. However, only Yandex Tank offers a fully-featured REST API for smooth integration with other systems.
-
-To enhance the resilience of the system, different reliability patterns and their potential configurations have been studied. Many of these patterns already have implementations and due to this fact it is more preferable to utilize existing implementations and focus on the correct configuration in order to achieve maximum performance
-This project aims to implement a tool that will utilize the tools and techniques discussed in this chapter.
+The implementation of reliability patterns varies from library to library, so, it is important to consider all the tune parameters of a specific implementation and use abstract ideas only to understand the work of the pattern.
+Most of the discussed load testing tools can be used to find performance metrics for the system, but these tools cannot be integrated into the tested system and cannot read or change its state.
