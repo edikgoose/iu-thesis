@@ -6,7 +6,7 @@ This chapter investigates the reliability patterns and load testing.
 It is organized in such way:
 \begin{itemize}
     \item~\ref{sec:reliability} gives a brief overview of reliability patterns and their configurations.
-    \item~\ref{sec:load_generation} provides the ideas about load testing and a comparison of modern load generation tools.
+    \item~\ref{sec:load_generation} provides the ideas about load testing and the comparison of modern load generation tools.
     \item~\ref{sec:review_conclusion} provides a conclusion of this chapter.
 \end{itemize}
 
@@ -14,11 +14,13 @@ It is organized in such way:
 \section{Reliability patterns}\label{sec:reliability}
 Reliability patterns ensure the stability and resiliency of high-performance systems.
 Beyer B. et al.~\cite{google_sre}, examined a number of such strategies, including rate limiting, retry strategy, circuit breaker, and load balancing. Similar concepts are presented in ~\cite{reliability_patterns}, regarding circuit-breaker and retry patterns.
-N. C. Mendonca, C. M. Aderaldo, J. Camara and D. Garlan~\cite{circuit_breaker} outlines that circuit-breaker can have several tuning parameters, such as the sleep window, the error percentage threshold, and others. But in real implementations of the same pattern set of tuning params can be different. This set can depend on specific implementation or features of programming language.
+N. C. Mendonca, C. M. Aderaldo, J. Camara and D. Garlan~\cite{circuit_breaker} outlines that circuit-breaker can have several tuning parameters, such as the sleep window, the error percentage threshold, and others. But in real implementations, the set of tuning params may vary. This set may depend on the specific implementation or features of the programming language.
 
-\begin{longtable}[c]{|p{4.5cm}|p{5.2cm}|p{5.2cm}|}
+\begin{longtable}[c]{|p{4.5cm}|p{5.2cm}|p{5.3cm}|}
+    \caption{Circuit breaker parameters for different implementations}
+    \label{tab:patterns_table} \\
     \hline
-    \textbf{Abstract parameter} & \textbf{Resilience4j} & \textbf{Circuit breaker library} \\
+    \textbf{Abstract parameter} & \textbf{Java (Resilience4j)} & \textbf{Python (Circuit breaker library)} \\
     \endhead
     \hline
     Timeout                     & maxWaitDuration       & recovery\_timeout                \\
@@ -35,19 +37,19 @@ N. C. Mendonca, C. M. Aderaldo, J. Camara and D. Garlan~\cite{circuit_breaker} o
                         expected\_exception,\\ fallback\_function
     \end{tabular} \\
     \hline
-    \caption{Circuit breaker parameters for different implementations}
-    \label{tab:patterns_table} \\
 \end{longtable}
 
 Table~\ref{tab:patterns_table} shows accordance of configuration parameters for abstract circuit breaker~\cite{circuit_breaker} and for real implementation in Java~\cite{resilience4j} and Python~\cite{circuitbreaker}. It shows that in real implementation we can have incomplete or more enhanced set of parameters and it's hard to create generic number of configuring params for all implementations.
 
 
 \section{Load testing}\label{sec:load_generation}
-To properly select a load generation tool, it is necessary to understand the goals of load testing. Daniel A.Menasc`e~\cite{load_testing_base} explains that load testing allows to measure the performance of a system: the average response time and throughput as a certain number of concurrent requests. Therefore, it is crucial for a load testing tool to generate a specified number of requests per second and presents the results as the response time and the maximum RPS that the server can handle.
+To properly select a load generation tool, it is necessary to understand the goals of load testing. Daniel A.Menasc`e~\cite{load_testing_base} explains that load testing allows to measure the performance of a system: the average response time and throughput as a certain number of concurrent requests. Therefore, it is crucial for a load testing tool to generate a specified number of requests per second (RPS) and presents the results as the response time and the maximum RPS that the server can handle.
 R. Abbas, Z. Sultan, and S. N. Bhatti~\cite{load_testing_tools} provide a comprehensive comparison of modern load generation tools, using various criteria, including different protocol support, costs, and ease of use. They compared such tools as JMeter~\cite{jmeter}, Siege~\cite{siege}, etc. Additionally, S. Myasnikov and D. Namiot~\cite{load_testing_tools_rus} present a similar comparison, but with an extended number of tools, such as Yandex Tank~\cite{yandex_tank} and Gatling~\cite{gatling}. All these tools meet the conditions specified by Daniel A.Menasc`e, and they differ from each other in terms of the implementation and the number of additional features. Table~\ref{tab:load_tools} shows a compiled comparison of open-source tools of the discussed studies:
 As we can see all tools are suitable for the concrete scenario. For example, if it is necessary to quickly execute a simple load test, Siege~\cite{siege} can be used. At the same time, Jmeter~\cite{jmeter} can be used for complex and several parallel tests. However, all these tools treat the tested system as a black box, and do not know anything about its implementation or configuration. For instance, they cannot show or change the configuration of reliability patterns during the test.
 
 \begin{longtable}[c]{|p{4cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|}
+    \caption{Comparison of load testing tool}
+    \label{tab:load_tools} \\
     \hline
     \textbf{Feature}        & \textbf{JMeter}             & \textbf{Yandex Tank} & \textbf{Gatling}                          & \textbf{Siege}                      \\
     \endhead
@@ -62,8 +64,6 @@ As we can see all tools are suitable for the concrete scenario. For example, if 
     \hline
     Platform support        & Everything with JVM         & UNIX                 & Everything with JVM                       & UNIX                                \\
     \hline
-    \caption{Comparison of load testing tool}
-    \label{tab:load_tools} \\
 \end{longtable}
 
 
