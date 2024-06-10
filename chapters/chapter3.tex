@@ -1,11 +1,11 @@
 \graphicspath{{figs/}} %path to images
 
 
-\chapter{System Design}
-\label{ch:lr}
+\chapter{System Requirements and Design}
+\label{ch:design}
 \chaptermark{Third Chapter Heading}
 
-Load generation tools are needed for testing the reliability and performance of the system. But they does not know anything about the system configuration state, and the correlation of the results of the load test and configuration is not obviously. To make this clearer, it is necessary to develop a system that can create a consistent relationship between load testing and system configuration. The following chapter provides a comprehensive description of such system. Section~\ref{sec:functional-requirements} outlines the functional requirements that the system should meet, while Section~\ref{sec:system_design} provides an overview of its architecture.
+Load generation tools are needed for testing the reliability and performance of the system. But they does not know anything about the system configuration state, and the correlation of the results of the load test and configuration is not obviously. To make this clearer, it is necessary to develop a system that can create a consistent relationship between load testing and system configuration. The following chapter provides a comprehensive description of such system. Section~\ref{sec:functional-requirements} outlines the functional requirements that the system should meet, while Section~\ref{sec:system_design} provides an overview of its design.
 
 
 \section{Functional Requirements}\label{sec:functional-requirements}
@@ -51,14 +51,14 @@ The abstract design of the system is presented on Figure~\ref{fig:design}. It co
 Needs to meet the functional requirement~\ref{subsec:fr:store_results}.
 It should be able to visualize:
 \begin{itemize}
-    \item List of the scenarios
-    \item List of the results from the executions, visualized as a time series
+    \item List of the scenarios and their executions
+    \item Results of the executions
 \end{itemize}
 
 \subsection{Internal layer}\label{subsec:internal_layer}
 It should contain the main business logic of the system. It is divided into:
 \begin{itemize}
-    \item Core module. Needs to meet the functional requirement~\ref{subsec:fr:reproduce}. It should communicate with other modules and datastore to properly store and reproduce scenarios.
+    \item Orchestrator module. Needs to meet the functional requirement~\ref{subsec:fr:reproduce}. It should communicate with other modules and datastore to properly store and reproduce scenarios.
     \item Load generation module. Needs to meet the functional requirement~\ref{subsec:fr:execute_load_test}. It should provide an API for executing load tests and generating results in time series format.
     \item Configuration manager module. Needs to meet the functional requirement~\ref{subsec:fr:integrate}. It should be able to provide an API for reading and updating the configuration of the tested system.
 \end{itemize}

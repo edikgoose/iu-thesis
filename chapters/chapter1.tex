@@ -17,7 +17,7 @@ C. Richardson~\cite{microservices} provides definitions for some of them:
 \begin{itemize}
     \item \textbf{Circuit breaker}. Proxy that blocks requests for a specified period of time after the number of consecutive failed attempts exceeds a predetermined threshold.
     \item \textbf{Retry strategy}. If the service returns with an error, the request will be retried after a specified timeout.
-    \item \textbf{Rate-limit}. Limiting the number of requests per second, either from a specific client or from all clients
+    \item \textbf{Rate-limit}. Limit the RPS for a specific client or for all clients.
 \end{itemize}
 
 All these reliability patterns should be properly configured. If a software system has many such patterns it can be difficult to maintain them, as the configuration of each one may result in different performance of the system.
@@ -33,7 +33,7 @@ To properly configure a reliability patters, it is necessary to test each config
 
 Before starting the testing it is necessary to choose the tool for load testing. They are divided into:
 \begin{itemize}
-    \item Self-hosted. It is deployed on machine or server by yourself. All stages of load testing is controlled by you. Usually these tools are open source. For example, JMeter~\cite{jmeter} is a self-hosted tool that use your machine resources.
+    \item Self-hosted. It is deployed on a machine or server by the user themselves. All stages of load testing are controlled by the user. Usually these tools are open source. For example, JMeter~\cite{jmeter} is a self-hosted tool that use your machine resources.
     \item Cloud-based. Such tools provides load testing as a service and hide test execution stage as a black box. Usually cloud-based solutions are paid because they provide load testing as a service, taking over computing power and deploying testing tools. For instance, BlazeMeter~\cite{blazemeter} is a cloud-based solution that needs only the configuration of the load test to execute it.
 \end{itemize}
 
@@ -41,7 +41,7 @@ To use cloud-based solutions, it is only necessary to pay money for their use. T
 
 
 \section{A system for reproducible load testing scenarios}\label{sec:purpose}
-It has been previously observed that there are already solutions available for configuring reliability patterns and solutions for executing load tests. However, if an engineer wants to test their system under the load with different configuration setups, they must deploy and use these tools separately and store in different place the link between the specific system configurations and their load configurations. If, for example, they forget to change system configuration for suitable load test, the incorrect results will be obtained. To avoid this situation it is necessary to develop a system that:
+It has been previously observed that there are already solutions available for executing load tests. However, if an engineer wants to test their system under the load with different configuration setups, they must deploy and use these tools separately and store in different place the link between the specific system configurations and their load configurations. If, for example, they forget to change system configuration for suitable load test, the incorrect results will be obtained. To avoid this situation it is necessary to develop a system that:
 \begin{itemize}
     \item Stores load test and system configurations together as a single scenario.
     \item Reproduces the scenario by setting the system configuration and running the load test.
@@ -51,4 +51,4 @@ It has been previously observed that there are already solutions available for c
 
 
 \section{Structure outline}\label{sec:structure-outline}
-Chapter 2 provides an overview of the most popular reliability patterns and their implementation, presents a comparison of different load generation tools and compares different tools for configuration. Chapter 3 outlines the architectural design of the system. Chapter 4 presents the implementation of the system and an example of its usage. Chapter 5 discusses difficulties and limitations encountered during development. Chapter 6 concludes the paper with final comments and future work.
+Chapter 2 provides an overview of the most popular reliability patterns and their implementation, presents a comparison of different load generation tools. Chapter 3 outlines the architectural design of the system. Chapter 4 presents the implementation of the system and an example of its usage. Chapter 5 discusses difficulties and limitations encountered during development. Chapter 6 concludes the paper with final comments and future work.

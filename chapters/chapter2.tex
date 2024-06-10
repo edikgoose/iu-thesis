@@ -23,13 +23,13 @@ N. C. Mendonca, C. M. Aderaldo, J. Camara and D. Garlan~\cite{circuit_breaker} o
     \textbf{Abstract parameter} & \textbf{Java (Resilience4j)} & \textbf{Python (Circuit breaker library)} \\
     \endhead
     \hline
-    Timeout                     & maxWaitDuration       & recovery\_timeout                \\
+    Timeout                     & maxWaitDuration              & recovery\_timeout                         \\
     \hline
-    Error Percent Threshold     & failureRateThreshold  & failure\_threshold               \\
+    Error Percent Threshold     & failureRateThreshold         & failure\_threshold                        \\
     \hline
-    Request Volume threshold    & minimumNumberOfCalls  & -                                \\
+    Request Volume threshold    & minimumNumberOfCalls         & -                                         \\
     \hline
-    Sleep window                & slidingWindowSize     & -                                \\
+    Sleep window                & slidingWindowSize            & -                                         \\
     \hline
     - & \begin{tabular}[c]{@{}l@{}}
             recordExceptions,\\ slidingWindowType
@@ -44,8 +44,8 @@ Table~\ref{tab:patterns_table} shows accordance of configuration parameters for 
 
 \section{Load testing}\label{sec:load_generation}
 To properly select a load generation tool, it is necessary to understand the goals of load testing. Daniel A.Menasc`e~\cite{load_testing_base} explains that load testing allows to measure the performance of a system: the average response time and throughput as a certain number of concurrent requests. Therefore, it is crucial for a load testing tool to generate a specified number of requests per second (RPS) and presents the results as the response time and the maximum RPS that the server can handle.
-R. Abbas, Z. Sultan, and S. N. Bhatti~\cite{load_testing_tools} provide a comprehensive comparison of modern load generation tools, using various criteria, including different protocol support, costs, and ease of use. They compared such tools as JMeter~\cite{jmeter}, Siege~\cite{siege}, etc. Additionally, S. Myasnikov and D. Namiot~\cite{load_testing_tools_rus} present a similar comparison, but with an extended number of tools, such as Yandex Tank~\cite{yandex_tank} and Gatling~\cite{gatling}. All these tools meet the conditions specified by Daniel A.Menasc`e, and they differ from each other in terms of the implementation and the number of additional features. Table~\ref{tab:load_tools} shows a compiled comparison of open-source tools of the discussed studies:
-As we can see all tools are suitable for the concrete scenario. For example, if it is necessary to quickly execute a simple load test, Siege~\cite{siege} can be used. At the same time, Jmeter~\cite{jmeter} can be used for complex and several parallel tests. However, all these tools treat the tested system as a black box, and do not know anything about its implementation or configuration. For instance, they cannot show or change the configuration of reliability patterns during the test.
+R. Abbas, Z. Sultan, and S. N. Bhatti~\cite{load_testing_tools} provide a comprehensive comparison of modern load generation tools, using various criteria, including different protocol support, costs, and ease of use. They compared such tools as JMeter~\cite{jmeter}, Siege~\cite{siege}, etc. Additionally, S. Myasnikov and D. Namiot~\cite{load_testing_tools_rus} present a similar comparison, but with an extended number of tools, such as Yandex Tank~\cite{yandex_tank} and Gatling~\cite{gatling}. All these tools meet the conditions specified by Daniel A.Menasc`e, and they differ from each other in terms of the implementation and the number of additional features. Table~\ref{tab:load_tools} shows a compiled comparison of open-source tools of the discussed studies.
+All tools are suitable for this specific scenario. For example, if it is necessary to quickly execute a simple load test, Siege~\cite{siege} can be used. At the same time, Jmeter~\cite{jmeter} can be used for complex and several parallel tests. However, these tools treat the system under the test as a black box, and do not have any knowledge of its implementation or configuration. Therefore, they are unable to show or change the configuration of reliability patterns during the testing.
 
 \begin{longtable}[c]{|p{4cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|}
     \caption{Comparison of load testing tool}
@@ -58,7 +58,7 @@ As we can see all tools are suitable for the concrete scenario. For example, if 
     \hline
     Built-in analyzing tool & Yes                         & No                   & No                                        & Yes                                 \\
     \hline
-    Interface               & GUI                         & Config files, REST   & Config files, GUI                         & CLI                                 \\
+    Interface               & GUI                         & Config files         & Config files, GUI                         & CLI                                 \\
     \hline
     Drawbacks               & Consumes much time to setup & Supports only HTTP   & Require knowledge of programming language               & Supports only the simplest scenario              \\
     \hline
