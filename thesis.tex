@@ -21,7 +21,7 @@
 \renewcommand{\ttdefault}{pcr}
 %%%%% END %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \usepackage{atbegshi,picture}
-\usepackage[T1,T2A]{fontenc}
+\usepackage[TT2,A1]{fontenc}
 \usepackage[utf8]{inputenc}
 \AtBeginShipout{\AtBeginShipoutUpperLeft{%
 \put(\dimexpr\paperwidth-1cm\relax,-1.5cm){\makebox[0pt][r]{\includegraphics[width=3cm]{figs/inno}}}%
@@ -128,6 +128,9 @@ label=(\arabic*),
 
 
 \newcommand{\dedication}[1]
+
+
+
 {\thispagestyle{empty}
 
 \begin{flushleft}\raggedleft #1\end{flushleft}

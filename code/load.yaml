@@ -1,0 +1,26 @@
+phantom:
+  timeout: 20s
+  address: order:8787
+  header_http: "1.1"
+  autocases: 30
+  headers:
+    - "[Host: order]"
+    - "[Connection: close]"
+  load_profile:
+    load_type: rps
+    schedule: const(10,4m)
+  uris:
+    - /api/order
+  multi:
+    - address: delivery:8788
+      timeout: 20s
+      header_http: "1.1"
+      autocases: 30
+      headers:
+        - "[Host: delivery]"
+        - "[Connection: close]"
+      load_profile:
+        load_type: rps
+        schedule: const(20, 1m) line(20, 200, 2m) const(10, 1m)
+      uris:
+        - /api/delivery

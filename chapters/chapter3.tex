@@ -14,7 +14,7 @@ The proposed system should meet the following functional requirements:
 \subsection{The system should be able to execute load tests.}\label{subsec:fr:execute_load_test}
 The requirement will be met when the system provides an API for configuring and executing load tests.
 
-\subsection{The system should be able to integrate into existing systems, read and change configurations of their reliability patterns.}\label{subsec:fr:integrate}
+\subsection{The system should be able to integrate into external systems, read and change configurations of their reliability patterns.}\label{subsec:fr:integrate}
 Since the format of reliability patterns configuration depends on the implementation and context, the system does not need to provide a common template for configuration. The composition of the configuration is determined by the developers of the tested system. However, the requirement will be met when the system is able to read and modify configurations in any format.
 
 \subsection{The system should be able to store test scenarios.}\label{subsec:fr:store_scenarios}
@@ -25,20 +25,15 @@ The requirement will be met when the system is able to store test scenarios that
 \end{itemize}
 
 \subsection{The system should be able to store and display test results for the appropriate scenario.}\label{subsec:fr:store_results}
-Result of the load test - values of performance metrics collected during the execution of the load test.
-The requirement will be met when the system is able to store and visualize the following results:
-\begin{itemize}
-    \item Average response time
-    \item RPS
-    \item Number of errors
-\end{itemize}
+The outcome of the load testing is represented by the values of the performance metrics collected during the course of the load test execution.
+The requirement will be met when the system is able to store and visualize average response time, RPS, number of errors
 
 \subsection{The system should be able to reproduce test scenario.}\label{subsec:fr:reproduce}
 The requirement will be met when the system is able to reproduce a test scenario by setting the appropriate configuration state for the tested system and starting load testing on it.
 
 
 \section{System Design}\label{sec:system_design}
-The abstract design of the system is presented on Figure~\ref{fig:design}. It consists of three layers:
+The abstract design of the system is presented on Fig.~\ref{fig:design}. It consists of three layers:
 
 \begin{figure}[t]
     \centering
@@ -50,22 +45,22 @@ The abstract design of the system is presented on Figure~\ref{fig:design}. It co
 \subsection{UI layer}\label{subsec:ui_layer}
 Needs to meet the functional requirement~\ref{subsec:fr:store_results}.
 It should be able to visualize:
-\begin{itemize}
-    \item List of the scenarios and their executions
-    \item Results of the executions
-\end{itemize}
+\begin{enumerate}
+    \item List of scenarios. It should be provided in the form of a table, with the ability to sort the data by any column.
+    \item Results of the executions. It should be presented in the form of charts, with the ability to add new charts or modify existing ones.
+\end{enumerate}
 
 \subsection{Internal layer}\label{subsec:internal_layer}
 It should contain the main business logic of the system. It is divided into:
-\begin{itemize}
+\begin{enumerate}
     \item Orchestrator module. Needs to meet the functional requirement~\ref{subsec:fr:reproduce}. It should communicate with other modules and datastore to properly store and reproduce scenarios.
     \item Load generation module. Needs to meet the functional requirement~\ref{subsec:fr:execute_load_test}. It should provide an API for executing load tests and generating results in time series format.
     \item Configuration manager module. Needs to meet the functional requirement~\ref{subsec:fr:integrate}. It should be able to provide an API for reading and updating the configuration of the tested system.
-\end{itemize}
+\end{enumerate}
 
 \subsection{External layer}\label{subsec:external_layer}
-Should contain external services for the system. It is divided into:
-\begin{itemize}
+It should contain external services for the system. This layer is referred to as external because any component within it can be easily replaced. It is divided into:
+\begin{enumerate}
     \item Datastore. Needs to meet the functional requirement~\ref{subsec:fr:store_scenarios}. It should provide an API for storing the scenarios and the results of their executions.
     \item System under the test. Any system that we want to test in different states of configuration.
-\end{itemize}
+\end{enumerate}
