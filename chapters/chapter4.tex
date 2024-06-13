@@ -142,7 +142,7 @@ Consul key/value storage provides an HTTP API for managing the configurations. I
 At the start of the orchestrator service it establishes a connection with Consul and monitors for any configuration changes using the Watches~\cite{consul_watches} mechanism.
 
 \subsection{Polling mechanism}\label{subsec:polling_mechanism}
-To have an actualized status of the load test and configuration of the system, I used HTTP~\cite{http} short polling strategy~\cite{http_polling}.
+To have an actualized status of the load test and configuration of the system, I used HTTP short polling strategy~\cite{http}.
 Fig.~\ref{fig:polling} illustrates the process. Every three seconds, the service polls the status and system configuration of unfinished tests and updates them accordingly.
 For this purpose, I used a Spring mechanisms for scheduling tasks. The code of the polling mechanism is presented in Listing~\ref{lst:polling}.
 \begin{figure}[t]
