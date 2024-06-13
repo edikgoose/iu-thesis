@@ -17,12 +17,12 @@ C. Richardson~\cite{microservices} provides definitions for some of them:
 \begin{enumerate}
     \item \textbf{Circuit breaker}. Proxy that blocks requests for a specified period of time after the number of consecutive failed attempts exceeds a predetermined threshold.
     \item \textbf{Retry strategy}. If the service returns with an error, the request will be retried after a specified timeout.
-    \item \textbf{Rate-limit}. Limit the RPS for a specific client or for all clients.
+    \item \textbf{Rate-limit}. Limit the RPS for a particular client or for all clients.
 \end{enumerate}
 
-All these reliability patterns should be properly configured. If a software system has many such patterns it can be difficult to maintain them, as the configuration of each one may result in different performance of the system.
+All these reliability patterns should be properly configured. If a software system has many such patterns, it can be difficult to maintain them, as the configuration of each one may result in different performance of the system.
 
-\section{Load Testing}\label{sec:load-testing}
+\section{Load testing}\label{sec:load-testing}
 To properly configure a reliability patters, it is necessary to test each configuration under high load conditions and all tests should repeat realistic usage scenarios. Load testing~\cite{load_testing_tips} is needed for creation of a manageable high load on a service in order to observe its behavior and identify the maximum point of load. There are three stages of using load testing:
 
 \begin{enumerate}
@@ -33,7 +33,7 @@ To properly configure a reliability patters, it is necessary to test each config
 
 Before starting the testing it is necessary to choose the tool for load testing. They are divided into:
 \begin{enumerate}
-    \item \textbf{Self-hosted}. It is deployed on a machine or server by the user themselves. All stages of load testing are controlled by the user. Usually these tools are open source. For example, JMeter~\cite{jmeter} is a self-hosted tool that use your machine resources.
+    \item \textbf{Self-hosted}. It is deployed on a machine by the user themselves. All stages of load testing are controlled by the user. Usually these tools are open source. For example, JMeter~\cite{jmeter} is a self-hosted tool that use user's machine resources.
     \item \textbf{Cloud-based}. Such tools provides load testing as a service and hide test execution stage as a black box. Usually cloud-based solutions are paid because they provide load testing as a service, taking over computing power and deploying testing tools. For instance, BlazeMeter~\cite{blazemeter} is a cloud-based solution that needs only the configuration of the load test to execute it.
 \end{enumerate}
 
@@ -51,4 +51,4 @@ It has been previously observed that there are already solutions available for e
 
 
 \section{Structure outline}\label{sec:structure-outline}
-Chapter~\ref{ch:lr} provides an overview of the most popular reliability patterns and their implementation, presents a comparison of different load generation tools. Chapter~\ref{ch:design} outlines the architectural design of the system. Chapter~\ref{ch:impl} presents the implementation of the system and an example of its usage. Chapter~\ref{ch:testing} discusses difficulties and limitations encountered during development. Chapter~\ref{ch:conclustion} concludes the paper with final comments and future work.
+Chapter~\ref{ch:lr} provides an overview of the most popular reliability patterns and their implementation, presents a comparison of different load generation tools. Chapter~\ref{ch:design} outlines the architectural design of the system. Chapter~\ref{ch:impl} presents the implementation of the system. Chapter~\ref{ch:testing} discusses an example of its usage. Chapter~\ref{ch:conclustion} concludes the paper with final comments and future work.

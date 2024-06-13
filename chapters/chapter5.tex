@@ -36,7 +36,7 @@ For testing purposes, I set the slidingWindowSize to 5 seconds, the waitDuration
 The order management service experiences a constant load of 10 RPS for 4 minutes, accessing the GET api/order endpoint.
 The delivery management service initially has a load of 20 RPS, which then increases sharply to 200 RPS within 2 minutes, before returning to a constant 10 RPS level for 1 minute.
 
-\section{The first scenario}\label{sec:test_description_1}
+\section{The first testing scenario}\label{sec:test_description_1}
 For the first scenario the error threshold was equal to 90\%.
 The full configuration of the circuit breaker for the first test is presented on Listing~\ref{lst:cb_1}
 \lstinputlisting[caption=Configuration of the circuit breaker for the first test, label={lst:cb_1}]{code/cb1.yaml}
@@ -68,7 +68,7 @@ Therefore, the circuit breaker in this scenario did not even open to protect the
     \label{fig:error-cb-90}
 \end{figure}
 
-\section{The second scenario}\label{sec:test_description_2}
+\section{The second testing scenario}\label{sec:test_description_2}
 For the second scenario the error threshold was equal to 15\%.
 The full configuration of the circuit breaker for the second test is presented on Listing~\ref{lst:cb_2}
 \begin{minipage}{\textwidth}
@@ -97,11 +97,15 @@ Fig~\ref{fig:error-cb-15} and Fig~\ref{fig:http-cb-15} show that after 15\% thre
     \label{fig:error-cb-15}
 \end{figure}
 
-\section{The third scenario}\label{sec:test_description_3}
+\section{The third testing scenario}\label{sec:test_description_3}
+For the second scenario the error threshold was equal to 50\%.
 The configuration of the circuit breaker for the third scenario is presented on Listing~\ref{lst:cb_3}
+
+\begin{flushright}
 \begin{minipage}{\textwidth}
 \lstinputlisting[caption=Configuration of the circuit breaker for the third test, label={lst:cb_3}]{code/cb3.yaml}
 \end{minipage}
+\end{flushright}
 
 The Fig~\ref{fig:response-cb-50} shows that after the start of the load increasing, the approximately 30 seconds is passed.
 Fig~\ref{fig:error-cb-50} and Fig~\ref{fig:http-cb-50} show that after 50\% threshold is exceeded, services stop responding with errors. These results indicates that circuit breaker with the third configuration was really waiting until the error threshold reached 50\%.
@@ -127,7 +131,7 @@ Fig~\ref{fig:error-cb-50} and Fig~\ref{fig:http-cb-50} show that after 50\% thre
 \end{figure}
 
 \section{Analysis}\label{sec:analysis}
-Three scenarios were used to test the implementation of a circuit breaker from the resilience4j library, or
+Three scenarios were used to test the implementation of a circuit breaker from the resilience4j~\cite{resilience4j} library, or
 rather, how accurately the circuit breaker taked into account the error threshold parameter. The first test showed that the system
 under the described scenario did not exceed 80\% of errors, and the circuit breaker with a 90\% error threshold did not
 open. Subsequent tests with thresholds 15\% and 50\% for circuit breaker demonstrated that it opened

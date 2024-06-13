@@ -12,15 +12,15 @@ Load generation tools are needed for testing the reliability and performance of 
 The proposed system should meet the following functional requirements:
 
 \begin{enumerate}
-    \item\label{subsec:fr:integrate} The system should be able to integrate into external systems, read and change configurations of their reliability patterns. Since the format of reliability patterns configuration depends on the implementation and context, the system does not need to provide a common template for configuration. The composition of the configuration is determined by the developers of the tested system. However, the requirement will be met when the system is able to read and modify configurations in any format.
     \item\label{subsec:fr:execute_load_test} The system should be able to execute load tests. The requirement will be met when the system provides an API for configuring and executing load tests.
+    \item\label{subsec:fr:integrate} The system should be able to integrate into external systems, read and change configurations of their reliability patterns. Since the format of reliability patterns configuration depends on the implementation and context, the system does not need to provide a common template for configuration. The composition of the configuration is determined by the developers of the tested system. However, the requirement will be met when the system is able to read and modify configurations in any format.
     \item\label{subsec:fr:store_scenarios} The system should be able to store test scenarios. The requirement will be met when the system is able to store test scenarios that consist of load test configuration and configuration system state.
-    \item\label{subsec:fr:store_results} The system should be able to store and display test results for the appropriate scenario. The outcome of the load testing is represented by the values of the performance metrics collected during the course of the load test execution. The requirement will be met when the system is able to store and visualize average response time, RPS, number of errors
+    \item\label{subsec:fr:store_results} The system should be able to store and display test results for the appropriate scenario. The outcome of the load testing is represented by the values of the performance metrics collected during the course of the load test execution. The requirement will be met when the system is able to store and visualize average response time, RPS, number of errors.
     \item\label{subsec:fr:reproduce} The system should be able to reproduce test scenario. The requirement will be met when the system is able to reproduce a test scenario by setting the appropriate configuration state for the tested system and starting load testing on it.
 \end{enumerate}
 
 \section{System Design}\label{sec:system_design}
-The abstract design of the system is presented on Fig.~\ref{fig:design}. It consists of three layers:
+The abstract design of the system is presented on Fig.~\ref{fig:design}.
 
 \begin{figure}[t]
     \centering
@@ -30,7 +30,7 @@ The abstract design of the system is presented on Fig.~\ref{fig:design}. It cons
 \end{figure}
 
 \subsection{UI layer}\label{subsec:ui_layer}
-Needs to meet the functional requirement~\ref{subsec:fr:store_results}.
+UI layer is needed to meet the functional requirement~\ref{subsec:fr:store_results}.
 It should be able to visualize:
 \begin{enumerate}
     \item List of scenarios. It should be provided in the form of a table, with the ability to sort the data by any column.
