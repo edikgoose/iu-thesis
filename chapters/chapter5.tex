@@ -3,9 +3,9 @@
 \chaptermark{Fith Chapter Heading}
 \newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
 
-This chapter presents a simple system for testing, and three testing scenarios, including their execution and analysis of the results.
+This chapter presents a simple feedback control system for testing, and three testing scenarios, including their execution and analysis of the results.
 
-\section{Test system description}\label{sec:test_system_description}
+\section{Feedback control system description}\label{sec:test_system_description}
 The system for testing is shown in Fig.~\ref{fig:tested-system}. It consists of two services:
 \begin{enumerate}
     \item Order management service. It is simple web service that has two HTTP~\cite{http} methods: one for creating order directly (GET api/order) and another for creating order for delivery (GET api/order-delivery). Both methods has been artificially delayed, such that the response time averages 250 milliseconds. Also this service is artificially restricted and it can hold only 10 requests simultaneously.
@@ -16,12 +16,12 @@ The method for creating orders directly is a critical component of the tested sy
 Therefore, in the event of increased traffic, it should be made available as a priority. Due to the fact that the delivery management service also uses this service via another method, it may be necessary to restrict its in the event of risks of unavailability.
 
 Therefore, delivery management service use circuit breaker pattern from the resilience4j~\cite{resilience4j} library for calling the GET api/order method. It starts with the closed state and counts the number of errors in the specified interval (sliding window). If the percentage of error exceeds a predetermined threshold, it will open and block all incoming requests. After a certain period of time, it will partially open and allow a limited number of requests to test. If these requests meet the error threshold criteria, the circuit breaker will close. Otherwise, it will return to the open state. This implementation of circuit breaker has the following main configuration parameters:
-\begin{itemize}
-    \item \code{slidingWindowSize}. The duration of time for which errors are counted.
-    \item \code{failureRateThreshold}. Percentage of errors for transition to a open state.
-    \item \code{waitDurationInOpenState}. The waiting duration before transition from open to half-open state
-    \item \code{permittedNumberOfCallsInHalfOpenState}. The number of permitted calls to the half-open state to test whether the circuit breaker can be closed.
-\end{itemize}
+\begin{enumerate}
+    \item \textbf{slidingWindowSize}. The duration of time for which errors are counted.
+    \item \textbf{failureRateThreshold}. Percentage of errors for transition to a open state.
+    \item \textbf{waitDurationInOpenState}. The waiting duration before transition from open to half-open state
+    \item \textbf{permittedNumberOfCallsInHalfOpenState}. The number of permitted calls to the half-open state to test whether the circuit breaker can be closed.
+\end{enumerate}
 
 \begin{figure}[t]
     \centering
@@ -32,14 +32,14 @@ Therefore, delivery management service use circuit breaker pattern from the resi
 
 
 For testing purposes, I set the slidingWindowSize to 5 seconds, the waitDurationInOpenState to 60 seconds, and the permittedNumberOfCallsInHalfOpenState set to 10. The aim of the testing was to access the behavior of the circuit breaker under the different values of the failureRateThreshold parameter. Additionally, to test the circuit breaker under the similar condition the load generation configuration was the same for all test scenarios. This configuration is presented on the Listing~\ref{lst:load_config}
-\lstinputlisting[language=Octave, caption=Load configuration, label={lst:load_config}]{code/load.yaml}
+\lstinputlisting[caption=Load configuration, label={lst:load_config}]{code/load.yaml}
 The order management service experiences a constant load of 10 RPS for 4 minutes, accessing the GET api/order endpoint.
 The delivery management service initially has a load of 20 RPS, which then increases sharply to 200 RPS within 2 minutes, before returning to a constant 10 RPS level for 1 minute.
 
 \section{The first scenario}\label{sec:test_description_1}
 For the first scenario the error threshold was equal to 90\%.
 The full configuration of the circuit breaker for the first test is presented on Listing~\ref{lst:cb_1}
-\lstinputlisting[language=Octave, caption=Configuration of the circuit breaker for the first test, label={lst:cb_1}]{code/cb1.yaml}
+\lstinputlisting[caption=Configuration of the circuit breaker for the first test, label={lst:cb_1}]{code/cb1.yaml}
 
 
 With such a high threshold, the circuit breaker is expected to open at the end of test, when fewer than 10\% of the requests are successful.
@@ -71,7 +71,9 @@ Therefore, the circuit breaker in this scenario did not even open to protect the
 \section{The second scenario}\label{sec:test_description_2}
 For the second scenario the error threshold was equal to 15\%.
 The full configuration of the circuit breaker for the second test is presented on Listing~\ref{lst:cb_2}
-\lstinputlisting[language=Octave, caption=Configuration of the circuit breaker for the second test, label={lst:cb_2}]{code/cb2.yaml}
+\begin{minipage}{\textwidth}
+\lstinputlisting[caption=Configuration of the circuit breaker for the second test, label={lst:cb_2}]{code/cb2.yaml}
+\end{minipage}
 
 The Fig~\ref{fig:response-cb-15} shows that immediately after increasing the load, the circuit breaker opens.
 Fig~\ref{fig:error-cb-15} and Fig~\ref{fig:http-cb-15} show that after 15\% threshold is exceeded, services stop responding with errors.
@@ -98,7 +100,7 @@ Fig~\ref{fig:error-cb-15} and Fig~\ref{fig:http-cb-15} show that after 15\% thre
 \section{The third scenario}\label{sec:test_description_3}
 The configuration of the circuit breaker for the third scenario is presented on Listing~\ref{lst:cb_3}
 \begin{minipage}{\textwidth}
-\lstinputlisting[language=Octave, caption=Configuration of the circuit breaker for the third test, label={lst:cb_3}]{code/cb3.yaml}
+\lstinputlisting[caption=Configuration of the circuit breaker for the third test, label={lst:cb_3}]{code/cb3.yaml}
 \end{minipage}
 
 The Fig~\ref{fig:response-cb-50} shows that after the start of the load increasing, the approximately 30 seconds is passed.

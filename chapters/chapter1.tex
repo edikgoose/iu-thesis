@@ -14,11 +14,11 @@ Most web services become unavailable after reaching their load limit, responding
 \section{Site reliability engineering}\label{sec:site-reliability-engineering}
 In 2003, Google proposed SRE~\cite{google_sre} practices with the aim to enhance the fault tolerance of web services. These practices include a number of measures, such as defining and measuring reliability targets, monitoring, alerting, and, last but not least, performance optimization. The practices suggest certain reliability patterns that can help to reduce the negative effects of high loads on users.
 C. Richardson~\cite{microservices} provides definitions for some of them:
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Circuit breaker}. Proxy that blocks requests for a specified period of time after the number of consecutive failed attempts exceeds a predetermined threshold.
     \item \textbf{Retry strategy}. If the service returns with an error, the request will be retried after a specified timeout.
     \item \textbf{Rate-limit}. Limit the RPS for a specific client or for all clients.
-\end{itemize}
+\end{enumerate}
 
 All these reliability patterns should be properly configured. If a software system has many such patterns it can be difficult to maintain them, as the configuration of each one may result in different performance of the system.
 
@@ -26,15 +26,15 @@ All these reliability patterns should be properly configured. If a software syst
 To properly configure a reliability patters, it is necessary to test each configuration under high load conditions and all tests should repeat realistic usage scenarios. Load testing~\cite{load_testing_tips} is needed for creation of a manageable high load on a service in order to observe its behavior and identify the maximum point of load. There are three stages of using load testing:
 
 \begin{enumerate}
-    \item Test Design. Load test scenarios should be as similar to real-world user requests as possible. In most cases, user activity is aggregated into a common metric, typically the number of requests per second.
-    \item Test Execution. Load testing requires a significant amount of resources, and therefore, the allocated hardware must be properly configured for high loads. Additionally, load testing tool must be deployed and configured on machine.
-    \item Test Analysis. During load testing, a variety of metrics and application logs are collected and aggregated to allow for analysis of the state of the service under stress.
+    \item \textbf{Test Design}. Load test scenarios should be as similar to real-world user requests as possible. In most cases, user activity is aggregated into a common metric, typically the number of requests per second.
+    \item \textbf{Test Execution}. Load testing requires a significant amount of resources, and therefore, the allocated hardware must be properly configured for high loads. Additionally, load testing tool must be deployed and configured on machine.
+    \item \textbf{Test Analysis}. During load testing, a variety of metrics and application logs are collected and aggregated to allow for analysis of the state of the service under stress.
 \end{enumerate}
 
 Before starting the testing it is necessary to choose the tool for load testing. They are divided into:
 \begin{enumerate}
-    \item Self-hosted. It is deployed on a machine or server by the user themselves. All stages of load testing are controlled by the user. Usually these tools are open source. For example, JMeter~\cite{jmeter} is a self-hosted tool that use your machine resources.
-    \item Cloud-based. Such tools provides load testing as a service and hide test execution stage as a black box. Usually cloud-based solutions are paid because they provide load testing as a service, taking over computing power and deploying testing tools. For instance, BlazeMeter~\cite{blazemeter} is a cloud-based solution that needs only the configuration of the load test to execute it.
+    \item \textbf{Self-hosted}. It is deployed on a machine or server by the user themselves. All stages of load testing are controlled by the user. Usually these tools are open source. For example, JMeter~\cite{jmeter} is a self-hosted tool that use your machine resources.
+    \item \textbf{Cloud-based}. Such tools provides load testing as a service and hide test execution stage as a black box. Usually cloud-based solutions are paid because they provide load testing as a service, taking over computing power and deploying testing tools. For instance, BlazeMeter~\cite{blazemeter} is a cloud-based solution that needs only the configuration of the load test to execute it.
 \end{enumerate}
 
 To use cloud-based solutions, it is only necessary to pay money for their use. This is a simple and convenient option, but if the cost is unacceptable, it may be necessary to utilize open source, self-hosted tools. In this scenario, the only expences would be for machine resources. However, deploying and using self-hosted tools correctly requires expertise in DevOps~\cite{devops}, which requires additional funds for specialist resources.

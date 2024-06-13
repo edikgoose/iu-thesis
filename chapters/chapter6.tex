@@ -2,16 +2,16 @@
 \label{ch:conclustion}
 \chaptermark{Sixth Chapter Heading}
 
-A Web-Service for Reproducible Load Testing, Visualization, and Configuration of Feedback Control Systems has been fully developed. The system meets all of the functional requirements from the Section~\ref{sec:functional-requirements}
+A web-service for reproducible load testing, visualization, and configuration of feedback control systems has been fully developed. The system meets all of the functional requirements from the Section~\ref{sec:functional-requirements}
 \begin{enumerate}
     \item The system is able to execute load tests. It provides the functionality of Yandex Tank~\cite{yandex_tank} through a user-friendly interface and can be used for routine load testing.
-    \item The system is able to integrate into external systems, read and change configurations of their reliability patterns. The presented system is able to read and modify any configuration of an external system. This is achieved through the use of Consul's key-value storage~\cite{consul}.
+    \item The system is able to integrate into external systems, read and change configurations of their reliability patterns. The presented system is able to read and modify any configuration of an external system. This is achieved through the use of Consul's key/value storage~\cite{consul}.
     \item The system is able to store test scenarios. All scenarios are stored in a PostgreSQL~\cite{postgresql} and managed by an orchestrator web service that is implemented using Kotlin~\cite{kotlin} and Spring Boot framework~\cite{spring}.
     \item The system is able to store and display test results for the appropriate scenario. All results is stored into InfluxDB~\cite{influxdb}, and visualized using the Grafana~\cite{grafana} tool.
     \item The system is able to reproduce test scenario. This reproduction process consists of two stages: reproducing the configuration of the system, and generating the configured load.
 \end{enumerate}
 This system introduces a novel approach to load testing, by treating the load generation and system configurations as a single scenario.
 
-\subsection{Future work}
-The presented system is able to set only starting configuration of the test.
-To create more complex feedback control scenarios it is needed to change system configuration state during the test.
+\section{Future work}\label{sec:future}
+The presented system can set up only initial configuration before the load, but to create more sophisticated feedback control scenarios, it may be necessary to alter the system's configuration during the course of the test.
+This ability to adjust the configuration as the test progresses will allow for the implementation of dynamic and adaptive control strategies in order to achieve the desired testing outcomes. By modifying the system's settings in real time, the testing procedure can simulate various situations and optimize system performance based on changing circumstances or inputs.

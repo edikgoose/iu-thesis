@@ -1,4 +1,4 @@
-\chapter{Implementation}
+\usepackage{color}\chapter{Implementation}
 \label{ch:impl}
 \chaptermark{Fourth Chapter Heading}
 
@@ -9,27 +9,32 @@
 \definecolor{light-gray}{gray}{0.95}
 
 \newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
-\lstdefinestyle{mystyle}{
-    caption=Example C++,
-    label={lst:listing-cpp},
-    language=C++,
-    backgroundcolor=\color{backcolour},
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,
-    breaklines=true,
-    keepspaces=true,
+\lstdefinestyle {CodeStyle} {
+    basicstyle=\fontfamily{pcr}\small,
+    columns=fullflexible,
+    showstringspaces=false,
     numbers=left,
-    numbersep=5pt,
+    numberstyle=\color{gray}\small,
+    stepnumber=1,
+    numbersep=10pt,
+    backgroundcolor=\color{white},
     showspaces=false,
     showstringspaces=false,
     showtabs=false,
+    frame=single,
+    xleftmargin=.05\textwidth,
+    xrightmargin=.05\textwidth,
+    aboveskip=1.5em,
+    rulecolor=\color{black},
     tabsize=2,
+% captionpos=b,
+    breaklines=true,
+    breakatwhitespace=false,
+% title=\lstname,
+    commentstyle=\color{gray}\upshape
 }
-\lstset{style=mystyle}
+
+\lstset{style=CodeStyle}
 
 
 The following chapter provides details on the implementation of the system, including any issues that arose during the development process and the solutions implemented to address these issues.
@@ -147,9 +152,11 @@ For this purpose, I used a Spring mechanisms for scheduling tasks. The code of t
     \label{fig:polling}
 \end{figure}
 
+\begin{flushright}
 \begin{minipage}{\textwidth}
     \lstinputlisting[language=Kotlin, caption=Polling function, label={lst:polling}]{code/polling.kt}
 \end{minipage}
+\end{flushright}
 
 
 \section{Implementation of UI}\label{sec:implementation-of-ui}
@@ -192,7 +199,7 @@ For easier deployment and management of the described services, each service has
 
 Container orchestrating is the automated management of containerized applications, handling deployment, scaling, and operation across multiple hosts. It ensures efficient resource usage, high availability, and scalability.
 Docker compose~\cite{docker_compose} is container orchestrating tool for Docker containers, which allows to describe all deployment as a single YAML~\cite{yaml} file. Listing~\ref{lst:docker_compose} illustrates a part of this file for Orchestrator and PostgreSQL containers.
-\lstinputlisting[language=Octave, caption=Part of the Docker Compose file, label={lst:docker_compose}]{code/docker-compose.yaml}
+\lstinputlisting[caption=Part of the Docker Compose file, label={lst:docker_compose}]{code/docker-compose.yaml}
 
 
 \section{Conclusion}\label{sec:conclusion}

@@ -135,17 +135,18 @@ label=(\arabic*),
 
 \begin{flushleft}\raggedleft #1\end{flushleft}
 }
+\hypersetup{colorlinks=true, allcolors=black, citecolor=black}
 
 \begin{document}
 
-%\includepdf[pages=-]{title.pdf}
-%\tableofcontents
-%\listoftables
-%\listoffigures
+\includepdf[pages=-,offset=25.5mm -25.5mm]{title.pdf}
+\tableofcontents
+\listoftables
+\listoffigures
 
 \newpage
-\input{chapters/abstract}
 \setcounter{page}{8} % set manually an actual number from which introduction starts
+\input{chapters/abstract}
 \input{chapters/chapter1}
 \input{chapters/chapter2}
 \input{chapters/chapter3}

@@ -1,4 +1,4 @@
-circuit-breaker:
+circuitBreaker:
   failure-rate-threshold: 50
   sliding-window-size: 5
   permittedNumberOfCallsInHalfOpenState: 10
